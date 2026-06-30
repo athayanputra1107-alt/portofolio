@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id" class="scroll-smooth dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,6 +34,12 @@
         }
     </script>
     <style>
+        /* CSS Custom Variable untuk pendaran dinamis */
+        :root {
+            --glow-color: rgba(2, 132, 199, 0.4); /* Default PPLG Blue Glow */
+        }
+
+        /* Custom Scrollbar */
         .custom-scrollbar::-webkit-scrollbar {
             width: 6px;
         }
@@ -41,18 +47,27 @@
             background: transparent;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background-color: #cbd5e1;
+            background-color: #334155;
             border-radius: 20px;
         }
-        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-            background-color: #475569;
+
+        /* Efek Latar Belakang Grid Teknologi seperti image_661c1b.png */
+        .blueprint-grid-bg {
+            background-color: #030712;
+            background-image: 
+                radial-gradient(circle at 50% 45%, var(--glow-color) 0%, #030712 75%),
+                linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 100% 100%, 45px 45px, 45px 45px;
+            background-attachment: fixed;
+            transition: background 0.8s ease-in-out;
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 transition-colors duration-300 custom-scrollbar font-sans antialiased">
+<body class="blueprint-grid-bg text-slate-100 transition-colors duration-300 custom-scrollbar font-sans antialiased">
 
     <!-- Top Navigation -->
-    <header class="sticky top-0 z-40 w-full border-b border-slate-200/80 bg-slate-50/80 backdrop-blur dark:border-slate-800 dark:bg-slate-900/80 transition-all">
+    <header class="sticky top-0 z-40 w-full border-b border-slate-800/80 bg-slate-950/70 backdrop-blur transition-all">
         <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
             <div class="flex items-center gap-2">
                 <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 text-white shadow-md shadow-sky-500/20">
@@ -60,75 +75,71 @@
                 </div>
                 <div>
                     <span class="text-lg font-bold tracking-tight bg-gradient-to-r from-sky-500 to-indigo-600 bg-clip-text text-transparent">SMK Portfoli-O</span>
-                    <span class="block text-[10px] text-slate-500 dark:text-slate-400 font-medium tracking-wider uppercase -mt-1">Edisi Siap Kerja</span>
+                    <span class="block text-[10px] text-slate-400 font-medium tracking-wider uppercase -mt-1">Edisi Siap Kerja</span>
                 </div>
             </div>
 
             <!-- Desktop Nav -->
             <nav class="hidden md:flex items-center gap-6">
-                <a href="#about" class="text-sm font-medium text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400 transition-colors">Tentang Saya</a>
-                <a href="#skills" class="text-sm font-medium text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400 transition-colors">Keahlian</a>
-                <a href="#projects" class="text-sm font-medium text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400 transition-colors">Projek</a>
-                <a href="#experience" class="text-sm font-medium text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400 transition-colors">Magang & Prestasi</a>
-                <a href="#contact" class="text-sm font-medium text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400 transition-colors">Kontak</a>
+                <a href="#about" class="text-sm font-medium text-slate-300 hover:text-sky-400 transition-colors">Tentang Saya</a>
+                <a href="#skills" class="text-sm font-medium text-slate-300 hover:text-sky-400 transition-colors">Keahlian</a>
+                <a href="#projects" class="text-sm font-medium text-slate-300 hover:text-sky-400 transition-colors">Projek</a>
+                <a href="#experience" class="text-sm font-medium text-slate-300 hover:text-sky-400 transition-colors">Magang & Prestasi</a>
+                <a href="#contact" class="text-sm font-medium text-slate-300 hover:text-sky-400 transition-colors">Kontak</a>
             </nav>
 
-            <!-- Customizer Trigger & Dark Mode Toggles -->
+            <!-- Customizer Trigger & Info -->
             <div class="flex items-center gap-3">
-                <button onclick="toggleCustomizer()" class="relative flex items-center gap-1.5 rounded-lg bg-sky-100 dark:bg-sky-950 px-3 py-1.5 text-xs font-semibold text-sky-700 dark:text-sky-300 hover:scale-105 transition-transform">
+                <button onclick="toggleCustomizer()" class="relative flex items-center gap-1.5 rounded-lg bg-sky-950/80 border border-sky-500/30 px-3 py-1.5 text-xs font-semibold text-sky-300 hover:scale-105 transition-transform shadow-lg shadow-sky-500/10">
                     <i class="fa-solid fa-wand-magic-sparkles animate-pulse"></i>
                     <span>Ubah Data Kamu</span>
                 </button>
-                
-                <button onclick="toggleDarkMode()" class="rounded-lg p-2 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors" aria-label="Toggle Theme">
-                    <i id="theme-icon" class="fa-solid fa-moon text-slate-600 dark:text-slate-300 text-lg"></i>
-                </button>
 
                 <!-- Mobile Menu Button -->
-                <button onclick="toggleMobileMenu()" class="md:hidden rounded-lg p-2 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+                <button onclick="toggleMobileMenu()" class="md:hidden rounded-lg p-2 hover:bg-slate-800 transition-colors">
                     <i class="fa-solid fa-bars text-lg"></i>
                 </button>
             </div>
         </div>
 
         <!-- Mobile Nav Menu (Hidden by default) -->
-        <div id="mobile-menu" class="hidden border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 md:hidden animate-fade-in">
+        <div id="mobile-menu" class="hidden border-t border-slate-800 bg-slate-950/95 md:hidden animate-fade-in">
             <div class="space-y-1 px-4 py-3 pb-4">
-                <a href="#about" onclick="toggleMobileMenu()" class="block rounded-lg px-3 py-2 text-base font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">Tentang Saya</a>
-                <a href="#skills" onclick="toggleMobileMenu()" class="block rounded-lg px-3 py-2 text-base font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-slate-800">Keahlian</a>
-                <a href="#projects" onclick="toggleMobileMenu()" class="block rounded-lg px-3 py-2 text-base font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-slate-800">Projek</a>
-                <a href="#experience" onclick="toggleMobileMenu()" class="block rounded-lg px-3 py-2 text-base font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-slate-800">Magang & Prestasi</a>
-                <a href="#contact" onclick="toggleMobileMenu()" class="block rounded-lg px-3 py-2 text-base font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-slate-800">Kontak</a>
+                <a href="#about" onclick="toggleMobileMenu()" class="block rounded-lg px-3 py-2 text-base font-medium text-slate-300 hover:bg-slate-800">Tentang Saya</a>
+                <a href="#skills" onclick="toggleMobileMenu()" class="block rounded-lg px-3 py-2 text-base font-medium text-slate-300 hover:bg-slate-800">Keahlian</a>
+                <a href="#projects" onclick="toggleMobileMenu()" class="block rounded-lg px-3 py-2 text-base font-medium text-slate-300 hover:bg-slate-800">Projek</a>
+                <a href="#experience" onclick="toggleMobileMenu()" class="block rounded-lg px-3 py-2 text-base font-medium text-slate-300 hover:bg-slate-800">Magang & Prestasi</a>
+                <a href="#contact" onclick="toggleMobileMenu()" class="block rounded-lg px-3 py-2 text-base font-medium text-slate-300 hover:bg-slate-800">Kontak</a>
             </div>
         </div>
     </header>
 
     <!-- Instant Customizer Drawer (Floating) -->
-    <div id="customizer-panel" class="fixed inset-y-0 right-0 z-50 w-full max-w-sm transform translate-x-full border-l border-slate-200 bg-white p-6 shadow-2xl transition-transform duration-300 ease-in-out dark:border-slate-800 dark:bg-slate-950">
-        <div class="flex items-center justify-between border-b border-slate-100 pb-4 dark:border-slate-900">
+    <div id="customizer-panel" class="fixed inset-y-0 right-0 z-50 w-full max-w-sm transform translate-x-full border-l border-slate-800 bg-slate-950/95 backdrop-blur-xl p-6 shadow-2xl transition-transform duration-300 ease-in-out">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-4">
             <div class="flex items-center gap-2">
-                <i class="fa-solid fa-gears text-sky-500"></i>
-                <h3 class="font-bold text-slate-900 dark:text-white">Panel Kustomisasi Portofolio</h3>
+                <i class="fa-solid fa-gears text-sky-400"></i>
+                <h3 class="font-bold text-white">Panel Kustomisasi</h3>
             </div>
-            <button onclick="toggleCustomizer()" class="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-700 dark:hover:bg-slate-900 dark:hover:text-slate-300">
+            <button onclick="toggleCustomizer()" class="rounded-lg p-1.5 text-slate-400 hover:bg-slate-900 hover:text-slate-200">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
         </div>
 
         <div class="mt-6 space-y-5 overflow-y-auto max-h-[calc(100vh-160px)] pr-2 custom-scrollbar">
-            <p class="text-xs text-slate-500 dark:text-slate-400">Ganti data di bawah ini untuk mensimulasikan data portofolio pribadi kamu sendiri!</p>
+            <p class="text-xs text-slate-400">Ganti data di bawah ini untuk mensimulasikan data portofolio pribadi kamu sendiri!</p>
             
             <!-- Jurusan Option Switcher -->
             <div class="space-y-2">
                 <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400">Pilih Jurusan SMK</label>
                 <div class="grid grid-cols-3 gap-2">
-                    <button onclick="setJurusan('rpl')" id="btn-jurusan-rpl" class="flex flex-col items-center gap-1.5 rounded-xl border-2 border-sky-500 bg-sky-50/50 p-2.5 text-center text-xs font-bold text-sky-700 transition dark:bg-sky-950/20">
+                    <button onclick="setJurusan('rpl')" id="btn-jurusan-rpl" class="flex flex-col items-center gap-1.5 rounded-xl border-2 border-sky-500 bg-sky-950/40 p-2.5 text-center text-xs font-bold text-sky-400 transition">
                         <i class="fa-solid fa-code text-base"></i> RPL
                     </button>
-                    <button onclick="setJurusan('tkj')" id="btn-jurusan-tkj" class="flex flex-col items-center gap-1.5 rounded-xl border border-slate-200 p-2.5 text-center text-xs font-medium text-slate-600 transition hover:border-slate-300 dark:border-slate-800 dark:text-slate-400">
+                    <button onclick="setJurusan('tkj')" id="btn-jurusan-tkj" class="flex flex-col items-center gap-1.5 rounded-xl border border-slate-800 p-2.5 text-center text-xs font-medium text-slate-400 transition hover:border-slate-700">
                         <i class="fa-solid fa-server text-base"></i> TKJ
                     </button>
-                    <button onclick="setJurusan('dkv')" id="btn-jurusan-dkv" class="flex flex-col items-center gap-1.5 rounded-xl border border-slate-200 p-2.5 text-center text-xs font-medium text-slate-600 transition hover:border-slate-300 dark:border-slate-800 dark:text-slate-400">
+                    <button onclick="setJurusan('dkv')" id="btn-jurusan-dkv" class="flex flex-col items-center gap-1.5 rounded-xl border border-slate-800 p-2.5 text-center text-xs font-medium text-slate-400 transition hover:border-slate-700">
                         <i class="fa-solid fa-palette text-base"></i> DKV
                     </button>
                 </div>
@@ -136,44 +147,44 @@
 
             <!-- Name Input -->
             <div class="space-y-1.5">
-                <label for="input-name" class="block text-xs font-semibold text-slate-600 dark:text-slate-400">Nama Lengkap</label>
-                <input type="text" id="input-name" value="Atha Yan Putra" oninput="updatePersonalData()" class="w-full rounded-xl border border-slate-300 bg-transparent px-3 py-2 text-sm text-slate-900 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 dark:border-slate-700 dark:text-white">
+                <label for="input-name" class="block text-xs font-semibold text-slate-400">Nama Lengkap</label>
+                <input type="text" id="input-name" value="Atha Yan Putra" oninput="updatePersonalData()" class="w-full rounded-xl border border-slate-800 bg-slate-900/60 px-3 py-2 text-sm text-white focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500">
             </div>
 
             <!-- School Input -->
             <div class="space-y-1.5">
-                <label for="input-school" class="block text-xs font-semibold text-slate-600 dark:text-slate-400">Nama SMK</label>
-                <input type="text" id="input-school" value="SMK Negeri 4 Bandar Lampung" oninput="updatePersonalData()" class="w-full rounded-xl border border-slate-300 bg-transparent px-3 py-2 text-sm text-slate-900 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 dark:border-slate-700 dark:text-white">
+                <label for="input-school" class="block text-xs font-semibold text-slate-400">Nama SMK</label>
+                <input type="text" id="input-school" value="SMK Negeri 4 Bandar Lampung" oninput="updatePersonalData()" class="w-full rounded-xl border border-slate-800 bg-slate-900/60 px-3 py-2 text-sm text-white focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500">
             </div>
 
             <!-- Bio Input -->
             <div class="space-y-1.5">
-                <label for="input-bio" class="block text-xs font-semibold text-slate-600 dark:text-slate-400">Bio Singkat</label>
-                <textarea id="input-bio" rows="3" oninput="updatePersonalData()" class="w-full rounded-xl border border-slate-300 bg-transparent px-3 py-2 text-sm text-slate-900 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 dark:border-slate-700 dark:text-white">Siswa SMK berdedikasi tinggi yang fokus mempelajari industri digital modern dan siap berkontribusi dalam tim kerja professional.</textarea>
+                <label for="input-bio" class="block text-xs font-semibold text-slate-400">Bio Singkat</label>
+                <textarea id="input-bio" rows="3" oninput="updatePersonalData()" class="w-full rounded-xl border border-slate-800 bg-slate-900/60 px-3 py-2 text-sm text-white focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500">Siswa PPLG di SMK Negeri 4 Bandar Lampung yang berfokus pada pengembangan website, pemrograman, dan pembuatan aplikasi.</textarea>
             </div>
 
             <!-- Email Input -->
             <div class="space-y-1.5">
-                <label for="input-email" class="block text-xs font-semibold text-slate-600 dark:text-slate-400">Email Kontak</label>
-                <input type="email" id="input-email" value="athayanputra1107@gmail.com" oninput="updatePersonalData()" class="w-full rounded-xl border border-slate-300 bg-transparent px-3 py-2 text-sm text-slate-900 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 dark:border-slate-700 dark:text-white">
+                <label for="input-email" class="block text-xs font-semibold text-slate-400">Email Kontak</label>
+                <input type="email" id="input-email" value="athayanputra1107@gmail.com" oninput="updatePersonalData()" class="w-full rounded-xl border border-slate-800 bg-slate-900/60 px-3 py-2 text-sm text-white focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500">
             </div>
 
             <!-- Phone Input -->
             <div class="space-y-1.5">
-                <label for="input-phone" class="block text-xs font-semibold text-slate-600 dark:text-slate-400">Nomor WhatsApp</label>
-                <input type="text" id="input-phone" value="+6289522611413" oninput="updatePersonalData()" class="w-full rounded-xl border border-slate-300 bg-transparent px-3 py-2 text-sm text-slate-900 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 dark:border-slate-700 dark:text-white">
+                <label for="input-phone" class="block text-xs font-semibold text-slate-400">Nomor WhatsApp</label>
+                <input type="text" id="input-phone" value="+6289522611413" oninput="updatePersonalData()" class="w-full rounded-xl border border-slate-800 bg-slate-900/60 px-3 py-2 text-sm text-white focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500">
             </div>
 
             <!-- Skill Setup Tip -->
-            <div class="rounded-xl bg-slate-50 p-3 text-slate-600 dark:bg-slate-900 dark:text-slate-400">
+            <div class="rounded-xl bg-slate-900/80 p-3 text-slate-400 border border-slate-800">
                 <div class="flex gap-2 text-xs">
                     <i class="fa-solid fa-lightbulb text-amber-500 mt-0.5"></i>
-                    <span><strong>Tips Ekspor:</strong> Setelah mengubah data kamu, halaman ini langsung siap dicetak (Ctrl+P / Save as PDF) untuk dijadikan lampiran lamaran kerja portofolio fisik!</span>
+                    <span>Setelah mengubah data kamu, halaman ini langsung siap dicetak atau disimpan sebagai PDF sebagai berkas lamaran!</span>
                 </div>
             </div>
         </div>
 
-        <div class="absolute bottom-0 left-0 right-0 border-t border-slate-100 bg-white p-4 dark:border-slate-900 dark:bg-slate-950">
+        <div class="absolute bottom-0 left-0 right-0 border-t border-slate-800 bg-slate-950 p-4">
             <button onclick="toggleCustomizer()" class="w-full rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 py-2.5 text-center text-sm font-semibold text-white shadow-lg shadow-sky-500/10 hover:brightness-105 active:scale-[0.98] transition">
                 Terapkan & Simpan Tampilan
             </button>
@@ -182,50 +193,46 @@
 
     <!-- Hero Section -->
     <section class="relative overflow-hidden py-16 sm:py-24 lg:py-32">
-        <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
-            <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#38bdf8] to-[#6366f1] opacity-20 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"></div>
-        </div>
-
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 
                 <!-- Left Content Area -->
                 <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
-                    <div class="inline-flex items-center gap-2 rounded-full border border-sky-500/20 bg-sky-50 dark:bg-sky-950/40 px-3 py-1 text-xs font-semibold text-sky-600 dark:text-sky-400 shadow-sm animate-bounce-slow">
+                    <div class="inline-flex items-center gap-2 rounded-full border border-sky-500/30 bg-sky-950/60 px-3.5 py-1.5 text-xs font-semibold text-sky-400 shadow-lg shadow-sky-500/5 animate-bounce-slow">
                         <i class="fa-solid fa-graduation-cap"></i>
-                        <span id="badge-jurusan-title">Siswa SMK - Jurusan Rekayasa Perangkat Lunak</span>
+                        <span id="badge-jurusan-title">Siswa SMK - Jurusan Pengembangan Perangkat Lunak dan Gim (PPLG)</span>
                     </div>
 
-                    <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl md:text-6xl dark:text-white">
-                        Halo, Saya <span id="hero-name" class="block mt-1 bg-gradient-to-r from-sky-500 via-indigo-500 to-indigo-600 bg-clip-text text-transparent">Atha Yan Putra</span>
+                    <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl">
+                        Halo, Saya <span id="hero-name" class="block mt-1 bg-gradient-to-r from-sky-400 via-sky-500 to-indigo-500 bg-clip-text text-transparent">Atha Yan Putra</span>
                     </h1>
 
-                    <p id="hero-subtext" class="mx-auto lg:mx-0 max-w-xl text-lg text-slate-600 dark:text-slate-300">
-                        Saya siswa jurusan <span class="font-bold text-sky-500 dark:text-sky-400" id="hero-major-bold">RPL (Rekayasa Perangkat Lunak)</span> dari <span class="font-bold text-indigo-500 dark:text-indigo-400" id="hero-school">SMK Negeri 4 Bandar Lampung</span>. Berfokus pada pengembangan aplikasi web, algoritma, dan siap melaksanakan magang/kerja.
+                    <p id="hero-subtext" class="mx-auto lg:mx-0 max-w-xl text-lg text-slate-300 leading-relaxed">
+                        Saya siswa jurusan <span class="font-bold text-sky-400" id="hero-major-bold">PPLG (Pengembangan Perangkat Lunak & Gim)</span> dari <span class="font-bold text-indigo-400" id="hero-school">SMK Negeri 4 Bandar Lampung</span>. Berfokus pada pengembangan aplikasi web, algoritma, dan siap melaksanakan magang/kerja.
                     </p>
 
                     <div class="flex flex-wrap justify-center lg:justify-start gap-4 pt-4">
-                        <a href="#projects" class="inline-flex items-center justify-center rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white shadow-md hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100 transition duration-200">
+                        <a href="#projects" class="inline-flex items-center justify-center rounded-xl bg-sky-500 px-6 py-3 text-sm font-semibold text-white shadow-md hover:bg-sky-600 shadow-sky-500/10 transition duration-200">
                             Lihat Projek Saya <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
                         </a>
-                        <a href="#contact" class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 shadow-sm hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800 transition duration-200">
+                        <a href="#contact" class="inline-flex items-center justify-center rounded-xl border border-slate-700 bg-slate-900/60 px-6 py-3 text-sm font-semibold text-slate-200 hover:bg-slate-800 transition duration-200">
                             Hubungi Saya <i class="fa-solid fa-envelope ml-2 text-xs"></i>
                         </a>
                     </div>
 
                     <!-- Trust Stats -->
-                    <div class="grid grid-cols-3 gap-6 pt-8 max-w-md mx-auto lg:mx-0 border-t border-slate-200 dark:border-slate-800">
+                    <div class="grid grid-cols-3 gap-6 pt-8 max-w-md mx-auto lg:mx-0 border-t border-slate-800">
                         <div>
-                            <span class="block text-2xl font-bold text-slate-900 dark:text-white" id="stat-projek">10+</span>
-                            <span class="text-xs text-slate-500 dark:text-slate-400">Projek Sekolah & Pribadi</span>
+                            <span class="block text-2xl font-bold text-white" id="stat-projek">10+</span>
+                            <span class="text-xs text-slate-400">Projek Sekolah & Pribadi</span>
                         </div>
                         <div>
-                            <span class="block text-2xl font-bold text-slate-900 dark:text-white" id="stat-sertif">4+</span>
-                            <span class="text-xs text-slate-500 dark:text-slate-400">Sertifikasi Industri</span>
+                            <span class="block text-2xl font-bold text-white" id="stat-sertif">4+</span>
+                            <span class="text-xs text-slate-400">Sertifikasi Industri</span>
                         </div>
                         <div>
-                            <span class="block text-2xl font-bold text-slate-900 dark:text-white" id="stat-pkl">6 Bln</span>
-                            <span class="text-xs text-slate-500 dark:text-slate-400">Pengalaman PKL (Magang)</span>
+                            <span class="block text-2xl font-bold text-white" id="stat-pkl">6 Bln</span>
+                            <span class="text-xs text-slate-400">Pengalaman PKL (Magang)</span>
                         </div>
                     </div>
                 </div>
@@ -233,92 +240,88 @@
                 <!-- Right Visual Area / Avatar -->
                 <div class="lg:col-span-5 flex justify-center">
                     <div class="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
-                        <!-- Background Circle Gradients -->
-                        <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-sky-300 via-sky-500 to-indigo-500 opacity-20 dark:opacity-40 animate-spin-slow"></div>
-                        <div class="absolute inset-4 rounded-full bg-gradient-to-tr from-indigo-500 to-sky-400 p-1 shadow-inner">
-                            <div class="h-full w-full rounded-full bg-slate-100 dark:bg-slate-900 overflow-hidden flex items-center justify-center">
+                        <!-- Dynamic glowing aura matching background -->
+                        <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-sky-400 to-indigo-500 opacity-20 blur-xl animate-pulse"></div>
+                        <div class="absolute inset-4 rounded-full bg-gradient-to-tr from-indigo-500 to-sky-400 p-1 shadow-2xl">
+                            <div class="h-full w-full rounded-full bg-slate-950 overflow-hidden flex items-center justify-center relative">
                                 <!-- Dynamic SVG Avatar or Image depending on major selected -->
-                                <div id="avatar-container" class="relative w-full h-full flex items-center justify-center text-8xl">
-                                    <i class="fa-solid fa-user text-sky-500/50"></i>
+                                <div id="avatar-container" class="relative w-full h-full flex items-center justify-center">
+                                    <img src="Desain%20tanpa%20judul.jpg" alt="Atha Yan Putra" class="w-full h-full object-cover rounded-full shadow-inner border-2 border-sky-500" onerror="this.onerror=null; this.src='https://placehold.co/400x400/0284c7/ffffff?text=Atha+Yan+Putra'">
                                 </div>
                             </div>
                         </div>
 
                         <!-- Mini Floating Badges -->
-                        <div class="absolute top-8 left-0 flex items-center gap-1.5 rounded-full bg-white dark:bg-slate-800 px-3.5 py-1.5 text-xs font-semibold shadow-lg dark:shadow-black/20">
+                        <div class="absolute top-8 left-0 flex items-center gap-1.5 rounded-full bg-slate-900 border border-slate-800 px-3.5 py-1.5 text-xs font-semibold shadow-lg shadow-black/50">
                             <span class="flex h-2 w-2 rounded-full bg-emerald-500"></span>
-                            <span class="text-slate-700 dark:text-slate-300">Siap Kerja</span>
+                            <span class="text-slate-200">Siap Kerja</span>
                         </div>
-                        <div class="absolute bottom-8 right-0 flex items-center gap-1.5 rounded-full bg-white dark:bg-slate-800 px-3.5 py-1.5 text-xs font-semibold shadow-lg dark:shadow-black/20">
-                            <i id="float-badge-icon" class="fa-solid fa-code text-indigo-500"></i>
-                            <span id="float-badge-text" class="text-slate-700 dark:text-slate-300">LSP Certified</span>
+                        <div class="absolute bottom-8 right-0 flex items-center gap-1.5 rounded-full bg-slate-900 border border-slate-800 px-3.5 py-1.5 text-xs font-semibold shadow-lg shadow-black/50">
+                            <i id="float-badge-icon" class="fa-solid fa-code text-indigo-400"></i>
+                            <span id="float-badge-text" class="text-slate-200">LSP Certified</span>
                         </div>
                     </div>
                 </div>
 
             </div>
         </div>
-
-        <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]" aria-hidden="true">
-            <div class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36rem] -translate-x-1/2 bg-gradient-to-tr from-[#818cf8] to-[#c084fc] opacity-20 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"></div>
-        </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-16 border-t border-b border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-950/30">
+    <section id="about" class="py-16 border-t border-b border-slate-800 bg-slate-950/60 backdrop-blur-sm">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 
                 <div class="lg:col-span-5 space-y-4">
-                    <span class="text-sm font-semibold text-sky-500 uppercase tracking-widest">PROFIL SAYA</span>
-                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white">Tentang Diri & Minat Karir</h2>
-                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed" id="about-intro">
+                    <span class="text-sm font-semibold text-sky-400 uppercase tracking-widest">PROFIL SAYA</span>
+                    <h2 class="text-3xl font-bold text-white">Tentang Diri & Minat Karir</h2>
+                    <p class="text-slate-300 leading-relaxed" id="about-intro">
                         Halo! Saya Atha Yan Putra, seorang siswa jurusan Pengembangan Perangkat Lunak dan Gim (PPLG) di SMK Negeri 4 Bandar Lampung. Saya memiliki minat yang besar di bidang teknologi, khususnya dalam pengembangan website, pemrograman, dan pembuatan aplikasi. Selama menempuh pendidikan, saya telah mempelajari berbagai bahasa pemrograman dan teknologi web, serta terus mengembangkan kemampuan melalui berbagai proyek dan latihan mandiri.
                         <br><br>
                         Saya memiliki pengalaman dalam dunia coding, mulai dari membangun website sederhana hingga mengembangkan aplikasi berbasis web. Saya senang mempelajari teknologi baru, memecahkan masalah melalui pemrograman, dan menciptakan solusi digital yang bermanfaat. Bagi saya, setiap proyek merupakan kesempatan untuk terus belajar, meningkatkan kemampuan, dan menghasilkan karya yang lebih baik.
                     </p>
-                    <div class="rounded-2xl border border-slate-100 bg-slate-50 dark:border-slate-800 dark:bg-slate-900 p-4 space-y-3">
+                    <div class="rounded-2xl border border-slate-800 bg-slate-900/40 p-4 space-y-3">
                         <div class="flex items-center gap-3">
-                            <i class="fa-solid fa-school text-sky-500 text-lg"></i>
+                            <i class="fa-solid fa-school text-sky-400 text-lg"></i>
                             <div>
-                                <span class="block text-xs text-slate-400">Asal Institusi</span>
-                                <span class="text-sm font-semibold text-slate-800 dark:text-slate-200" id="about-school">SMK Negeri 4 Bandar Lampung</span>
+                                <span class="block text-xs text-slate-500">Asal Institusi</span>
+                                <span class="text-sm font-semibold text-slate-200" id="about-school">SMK Negeri 4 Bandar Lampung</span>
                             </div>
                         </div>
                         <div class="flex items-center gap-3">
-                            <i class="fa-solid fa-graduation-cap text-indigo-500 text-lg"></i>
+                            <i class="fa-solid fa-graduation-cap text-indigo-400 text-lg"></i>
                             <div>
-                                <span class="block text-xs text-slate-400">Kompetensi Keahlian (Major)</span>
-                                <span class="text-sm font-semibold text-slate-800 dark:text-slate-200" id="about-major">Pengembangan Perangkat Lunak dan Gim (PPLG)</span>
+                                <span class="block text-xs text-slate-500">Kompetensi Keahlian (Major)</span>
+                                <span class="text-sm font-semibold text-slate-200" id="about-major">Pengembangan Perangkat Lunak dan Gim (PPLG)</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="lg:col-span-7 space-y-6">
-                    <h3 class="text-xl font-bold text-slate-900 dark:text-white">Alur Pembelajaran Vokasi</h3>
+                    <h3 class="text-xl font-bold text-white">Alur Pembelajaran Vokasi</h3>
                     
-                    <div class="relative pl-6 border-l-2 border-slate-200 dark:border-slate-800 space-y-6">
+                    <div class="relative pl-6 border-l-2 border-slate-800 space-y-6">
                         <!-- Step 1 -->
                         <div class="relative">
-                            <div class="absolute -left-[31px] top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-sky-500 ring-4 ring-white dark:ring-slate-900"></div>
-                            <span class="text-xs font-semibold text-sky-600 dark:text-sky-400">KELAS X - DASAR KEJURUAN</span>
-                            <h4 class="font-bold text-slate-800 dark:text-slate-200" id="step-kelas-10-title">Algoritma, Desain Web Dasar & Logika Komputer</h4>
-                            <p class="text-sm text-slate-500 dark:text-slate-400" id="step-kelas-10-desc">Mempelajari dasar-dasar pemrograman web HTML, CSS, logika pemecahan masalah algoritma dasar, serta pengenalan awal hardware komputer.</p>
+                            <div class="absolute -left-[31px] top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-sky-500 ring-4 ring-slate-950"></div>
+                            <span class="text-xs font-semibold text-sky-400">KELAS X - DASAR KEJURUAN</span>
+                            <h4 class="font-bold text-slate-200" id="step-kelas-10-title">Algoritma, Desain Web Dasar & Logika Komputer</h4>
+                            <p class="text-sm text-slate-400" id="step-kelas-10-desc">Mempelajari dasar-dasar pemrograman web HTML, CSS, logika pemecahan masalah algoritma dasar, serta pengenalan awal hardware komputer.</p>
                         </div>
                         <!-- Step 2 -->
                         <div class="relative">
-                            <div class="absolute -left-[31px] top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-indigo-500 ring-4 ring-white dark:ring-slate-900"></div>
-                            <span class="text-xs font-semibold text-indigo-600 dark:text-indigo-400">KELAS XI - SPESIALISASI & PKL</span>
-                            <h4 class="font-bold text-slate-800 dark:text-slate-200" id="step-kelas-11-title">Pemrograman Database, Web Lanjut & Praktik Kerja Lapangan</h4>
-                            <p class="text-sm text-slate-500 dark:text-slate-400" id="step-kelas-11-desc">Membuat aplikasi web dengan database relasional (SQL) serta mengaplikasikan ilmu langsung di industri melalui program magang (PKL).</p>
+                            <div class="absolute -left-[31px] top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-indigo-500 ring-4 ring-slate-950"></div>
+                            <span class="text-xs font-semibold text-indigo-400">KELAS XI - SPESIALISASI & PKL</span>
+                            <h4 class="font-bold text-slate-200" id="step-kelas-11-title">Pemrograman Database, Web Lanjut & Praktik Kerja Lapangan</h4>
+                            <p class="text-sm text-slate-400" id="step-kelas-11-desc">Membuat aplikasi web dengan database relasional (SQL) serta mengaplikasikan ilmu langsung di industri melalui program magang (PKL).</p>
                         </div>
                         <!-- Step 3 -->
                         <div class="relative">
-                            <div class="absolute -left-[31px] top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500 ring-4 ring-white dark:ring-slate-900"></div>
-                            <span class="text-xs font-semibold text-emerald-600 dark:text-emerald-400">KELAS XII - PROJEK AKHIR & SERTIFIKASI</span>
-                            <h4 class="font-bold text-slate-800 dark:text-slate-200" id="step-kelas-12-title">Uji Kompetensi Keahlian (UKK) & LSP P-1 Sertifikasi</h4>
-                            <p class="text-sm text-slate-500 dark:text-slate-400" id="step-kelas-12-desc">Menyelesaikan projek akhir berupa sistem yang teruji secara komprehensif dan disertifikasi secara nasional oleh BNSP melalui LSP sekolah.</p>
+                            <div class="absolute -left-[31px] top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500 ring-4 ring-slate-950"></div>
+                            <span class="text-xs font-semibold text-emerald-400">KELAS XII - PROJEK AKHIR & SERTIFIKASI</span>
+                            <h4 class="font-bold text-slate-200" id="step-kelas-12-title">Uji Kompetensi Keahlian (UKK) & LSP P-1 Sertifikasi</h4>
+                            <p class="text-sm text-slate-400" id="step-kelas-12-desc">Menyelesaikan projek akhir berupa sistem yang teruji secara komprehensif dan disertifikasi secara nasional oleh BNSP melalui LSP sekolah.</p>
                         </div>
                     </div>
                 </div>
@@ -331,9 +334,9 @@
     <section id="skills" class="py-16">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto space-y-3 mb-12">
-                <span class="text-sm font-semibold text-indigo-500 uppercase tracking-widest">KOMPETENSI TEKNIS</span>
-                <h2 class="text-3xl font-bold text-slate-900 dark:text-white">Keahlian Kejuruan & Tools</h2>
-                <p class="text-slate-500 dark:text-slate-400">Daftar teknologi, tools, dan metode kerja yang saya pelajari dan sering gunakan saat praktek produktif di sekolah maupun PKL.</p>
+                <span class="text-sm font-semibold text-indigo-400 uppercase tracking-widest">KOMPETENSI TEKNIS</span>
+                <h2 class="text-3xl font-bold text-white">Keahlian Kejuruan & Tools</h2>
+                <p class="text-slate-400">Daftar teknologi, tools, dan metode kerja yang saya pelajari dan sering gunakan saat praktek produktif di sekolah maupun PKL.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="skills-grid">
@@ -341,25 +344,25 @@
             </div>
 
             <!-- Softskills Banner -->
-            <div class="mt-12 rounded-2xl bg-gradient-to-r from-sky-600 to-indigo-700 p-8 text-white shadow-xl">
+            <div class="mt-12 rounded-2xl bg-gradient-to-r from-sky-950/80 to-indigo-950/80 border border-slate-800 p-8 text-white shadow-xl backdrop-blur-sm">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
                     <div class="space-y-2">
-                        <span class="text-xs font-bold uppercase tracking-wider text-sky-200">Kesiapan Kerja</span>
+                        <span class="text-xs font-bold uppercase tracking-wider text-sky-400">Kesiapan Kerja</span>
                         <h3 class="text-2xl font-bold">Kualitas Kerja Non-Teknis (Soft Skills)</h3>
                     </div>
                     <div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="flex items-start gap-3 rounded-xl bg-white/10 p-4">
-                            <i class="fa-solid fa-people-group text-sky-200 text-lg mt-0.5"></i>
+                        <div class="flex items-start gap-3 rounded-xl bg-slate-900/40 border border-slate-800/60 p-4">
+                            <i class="fa-solid fa-people-group text-sky-400 text-lg mt-0.5"></i>
                             <div>
                                 <h4 class="font-semibold text-white">Kolaborasi Tim</h4>
-                                <p class="text-xs text-sky-100">Bekerja sama dalam menyelesaikan projek kelompok sekolah menggunakan metodologi agile sederhana.</p>
+                                <p class="text-xs text-slate-400">Bekerja sama dalam menyelesaikan projek kelompok sekolah menggunakan metodologi agile sederhana.</p>
                             </div>
                         </div>
-                        <div class="flex items-start gap-3 rounded-xl bg-white/10 p-4">
-                            <i class="fa-solid fa-brain text-sky-200 text-lg mt-0.5"></i>
+                        <div class="flex items-start gap-3 rounded-xl bg-slate-900/40 border border-slate-800/60 p-4">
+                            <i class="fa-solid fa-brain text-sky-400 text-lg mt-0.5"></i>
                             <div>
                                 <h4 class="font-semibold text-white">Analitis & Problem Solving</h4>
-                                <p class="text-xs text-sky-100">Cepat menganalisa error atau masalah teknis dan menemukan solusi dokumentatif yang efektif.</p>
+                                <p class="text-xs text-slate-400">Cepat menganalisa error atau masalah teknis dan menemukan solusi dokumentatif yang efektif.</p>
                             </div>
                         </div>
                     </div>
@@ -369,20 +372,20 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="py-16 bg-slate-100/50 dark:bg-slate-950/20 border-t border-b border-slate-200 dark:border-slate-800">
+    <section id="projects" class="py-16 bg-slate-950/40 backdrop-blur-sm border-t border-b border-slate-800">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
                 <div class="space-y-3">
-                    <span class="text-sm font-semibold text-sky-500 uppercase tracking-widest">SHOWCASE PROJEK</span>
-                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white">Hasil Karya Produktif</h2>
+                    <span class="text-sm font-semibold text-sky-400 uppercase tracking-widest">SHOWCASE PROJEK</span>
+                    <h2 class="text-3xl font-bold text-white">Hasil Karya Produktif</h2>
                 </div>
                 
                 <!-- Category Filter Buttons -->
                 <div class="flex flex-wrap gap-2" id="project-filters">
                     <button onclick="filterProjects('all')" id="filter-all" class="rounded-lg bg-sky-500 px-4 py-1.5 text-xs font-semibold text-white transition">Semua Projek</button>
-                    <button onclick="filterProjects('sekolah')" id="filter-sekolah" class="rounded-lg bg-white dark:bg-slate-800 px-4 py-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-50 transition border border-slate-200 dark:border-slate-700">Tugas Sekolah</button>
-                    <button onclick="filterProjects('pkl')" id="filter-pkl" class="rounded-lg bg-white dark:bg-slate-800 px-4 py-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-50 transition border border-slate-200 dark:border-slate-700">Projek PKL</button>
-                    <button onclick="filterProjects('pribadi')" id="filter-pribadi" class="rounded-lg bg-white dark:bg-slate-800 px-4 py-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-50 transition border border-slate-200 dark:border-slate-700">Projek Mandiri</button>
+                    <button onclick="filterProjects('sekolah')" id="filter-sekolah" class="rounded-lg bg-slate-900 border border-slate-800 px-4 py-1.5 text-xs font-semibold text-slate-300 hover:bg-slate-800 transition">Tugas Sekolah</button>
+                    <button onclick="filterProjects('pkl')" id="filter-pkl" class="rounded-lg bg-slate-900 border border-slate-800 px-4 py-1.5 text-xs font-semibold text-slate-300 hover:bg-slate-800 transition">Projek PKL</button>
+                    <button onclick="filterProjects('pribadi')" id="filter-pribadi" class="rounded-lg bg-slate-900 border border-slate-800 px-4 py-1.5 text-xs font-semibold text-slate-300 hover:bg-slate-800 transition">Projek Mandiri</button>
                 </div>
             </div>
 
@@ -401,20 +404,20 @@
                 <!-- Timeline: Magang & Pendidikan -->
                 <div class="lg:col-span-7 space-y-6">
                     <div class="space-y-2">
-                        <span class="text-sm font-semibold text-indigo-500 uppercase tracking-widest">REKAM JEJAK</span>
-                        <h2 class="text-3xl font-bold text-slate-900 dark:text-white">Prakerin & Pendidikan</h2>
+                        <span class="text-sm font-semibold text-indigo-400 uppercase tracking-widest">REKAM JEJAK</span>
+                        <h2 class="text-3xl font-bold text-white">Prakerin & Pendidikan</h2>
                     </div>
 
-                    <div class="relative border-l border-slate-200 dark:border-slate-800 pl-6 ml-3 space-y-8">
+                    <div class="relative border-l border-slate-800 pl-6 ml-3 space-y-8">
                         <!-- Education Node -->
                         <div class="relative">
                             <span class="absolute -left-[35px] top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-indigo-500 text-white shadow-md">
                                 <i class="fa-solid fa-school text-[10px]"></i>
                             </span>
-                            <span class="text-xs font-semibold text-indigo-600 dark:text-indigo-400">2024 - Sekarang</span>
-                            <h3 class="text-lg font-bold text-slate-800 dark:text-slate-200">Siswa Vokasi</h3>
-                            <p class="text-sm font-semibold text-slate-500 dark:text-slate-400" id="experience-school-name">SMK Negeri 4 Bandar Lampung</p>
-                            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Mengambil kompetensi utama kejuruan yang menekankan pada kemampuan praktek siap kerja di industri modern.</p>
+                            <span class="text-xs font-semibold text-indigo-400">2024 - Sekarang</span>
+                            <h3 class="text-lg font-bold text-slate-200">Siswa Vokasi</h3>
+                            <p class="text-sm font-semibold text-slate-400" id="experience-school-name">SMK Negeri 4 Bandar Lampung</p>
+                            <p class="text-sm text-slate-400 mt-1">Mengambil kompetensi utama kejuruan yang menekankan pada kemampuan praktek siap kerja di industri modern.</p>
                         </div>
 
                         <!-- Internship (PKL / Prakerin Node) -->
@@ -422,10 +425,10 @@
                             <span class="absolute -left-[35px] top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-sky-500 text-white shadow-md">
                                 <i class="fa-solid fa-briefcase text-[10px]"></i>
                             </span>
-                            <span class="text-xs font-semibold text-sky-600 dark:text-sky-400">Juli - Desember 2025 (6 Bulan)</span>
-                            <h3 class="text-lg font-bold text-slate-800 dark:text-slate-200">Praktek Kerja Lapangan (Magang Industri)</h3>
-                            <p class="text-sm font-semibold text-slate-500 dark:text-slate-400" id="experience-pkl-company">PT Solusi Teknologi Kreatif</p>
-                            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1" id="experience-pkl-desc">Membantu tim engineer utama membangun aplikasi web internal perusahaan, memperbaiki bug tampilan UI/UX, dan membuat dokumentasi teknis sistem API.</p>
+                            <span class="text-xs font-semibold text-sky-400">Juli - Desember 2025 (6 Bulan)</span>
+                            <h3 class="text-lg font-bold text-slate-200">Praktek Kerja Lapangan (Magang Industri)</h3>
+                            <p class="text-sm font-semibold text-slate-400" id="experience-pkl-company">PT Solusi Teknologi Kreatif</p>
+                            <p class="text-sm text-slate-400 mt-1" id="experience-pkl-desc">Membantu tim engineer utama membangun aplikasi web internal perusahaan, memperbaiki bug tampilan UI/UX, dan membuat dokumentasi teknis sistem API.</p>
                         </div>
                     </div>
                 </div>
@@ -433,8 +436,8 @@
                 <!-- Column: Certifications / Badges -->
                 <div class="lg:col-span-5 space-y-6">
                     <div class="space-y-2">
-                        <span class="text-sm font-semibold text-emerald-500 uppercase tracking-widest">LEGALITAS SKILL</span>
-                        <h2 class="text-3xl font-bold text-slate-900 dark:text-white">Sertifikasi & Lisensi</h2>
+                        <span class="text-sm font-semibold text-emerald-400 uppercase tracking-widest">LEGALITAS SKILL</span>
+                        <h2 class="text-3xl font-bold text-white">Sertifikasi & Lisensi</h2>
                     </div>
 
                     <div class="space-y-4" id="certifications-list">
@@ -447,46 +450,46 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-16 bg-slate-100/50 dark:bg-slate-950/20 border-t border-b border-slate-200 dark:border-slate-800">
+    <section id="contact" class="py-16 bg-slate-950/40 backdrop-blur-sm border-t border-b border-slate-800">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
                 
                 <!-- Contact info details -->
                 <div class="lg:col-span-5 space-y-6">
                     <div class="space-y-2">
-                        <span class="text-sm font-semibold text-sky-500 uppercase tracking-widest">KOLABORASI & REKRUTMEN</span>
-                        <h2 class="text-3xl font-bold text-slate-900 dark:text-white">Mari Diskusikan Kerja Sama</h2>
-                        <p class="text-slate-500 dark:text-slate-400">Tertarik merekrut saya untuk magang, kerja penuh waktu, atau kerja sama projek freelance? Hubungi saya lewat form ini atau info kontak di bawah.</p>
+                        <span class="text-sm font-semibold text-sky-400 uppercase tracking-widest">KOLABORASI & REKRUTMEN</span>
+                        <h2 class="text-3xl font-bold text-white">Mari Diskusikan Kerja Sama</h2>
+                        <p class="text-slate-400">Tertarik merekrut saya untuk magang, kerja penuh waktu, atau kerja sama projek freelance? Hubungi saya lewat form ini atau info kontak di bawah.</p>
                     </div>
 
                     <div class="space-y-4">
-                        <div class="flex items-start gap-4 rounded-2xl bg-white dark:bg-slate-900 p-4 shadow-sm">
-                            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sky-100 text-sky-600 dark:bg-sky-950 dark:text-sky-400">
+                        <div class="flex items-start gap-4 rounded-2xl bg-slate-900/50 border border-slate-800/80 p-4 shadow-sm">
+                            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sky-950 border border-sky-500/20 text-sky-400">
                                 <i class="fa-solid fa-envelope"></i>
                             </div>
                             <div>
-                                <span class="block text-xs text-slate-400">Kirim Email ke</span>
-                                <a id="contact-info-email" href="#" class="text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-sky-500 dark:hover:text-sky-400 break-all">athayanputra1107@gmail.com</a>
+                                <span class="block text-xs text-slate-500">Kirim Email ke</span>
+                                <a id="contact-info-email" href="mailto:athayanputra1107@gmail.com" class="text-sm font-semibold text-slate-200 hover:text-sky-400 break-all">athayanputra1107@gmail.com</a>
                             </div>
                         </div>
 
-                        <div class="flex items-start gap-4 rounded-2xl bg-white dark:bg-slate-900 p-4 shadow-sm">
-                            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-100 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400">
+                        <div class="flex items-start gap-4 rounded-2xl bg-slate-900/50 border border-slate-800/80 p-4 shadow-sm">
+                            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-950 border border-indigo-500/20 text-indigo-400">
                                 <i class="fa-brands fa-whatsapp"></i>
                             </div>
                             <div>
-                                <span class="block text-xs text-slate-400">WhatsApp / Telepon</span>
-                                <span id="contact-info-phone" class="text-sm font-semibold text-slate-800 dark:text-slate-200">+6289522611413</span>
+                                <span class="block text-xs text-slate-500">WhatsApp / Telepon</span>
+                                <span id="contact-info-phone" class="text-sm font-semibold text-slate-200">+6289522611413</span>
                             </div>
                         </div>
 
-                        <div class="flex items-start gap-4 rounded-2xl bg-white dark:bg-slate-900 p-4 shadow-sm">
-                            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400">
+                        <div class="flex items-start gap-4 rounded-2xl bg-slate-900/50 border border-slate-800/80 p-4 shadow-sm">
+                            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-950 border border-emerald-500/20 text-emerald-400">
                                 <i class="fa-solid fa-location-dot"></i>
                             </div>
                             <div>
-                                <span class="block text-xs text-slate-400">Lokasi Saat Ini</span>
-                                <span class="text-sm font-semibold text-slate-800 dark:text-slate-200">Bandar Lampung, Lampung, Indonesia</span>
+                                <span class="block text-xs text-slate-500">Lokasi Saat Ini</span>
+                                <span class="text-sm font-semibold text-slate-200">Bandar Lampung, Lampung, Indonesia</span>
                             </div>
                         </div>
                     </div>
@@ -494,34 +497,34 @@
 
                 <!-- Contact Form Simulator -->
                 <div class="lg:col-span-7">
-                    <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950">
-                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6">Kirim Pesan Langsung</h3>
+                    <div class="rounded-3xl border border-slate-800 bg-slate-900/30 backdrop-blur-sm p-6 shadow-sm">
+                        <h3 class="text-xl font-bold text-white mb-6">Kirim Pesan Langsung</h3>
                         
                         <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div class="space-y-1.5">
-                                    <label for="form-sender-name" class="block text-xs font-semibold text-slate-600 dark:text-slate-400">Nama Anda / Instansi</label>
-                                    <input type="text" id="form-sender-name" required class="w-full rounded-xl border border-slate-300 bg-transparent px-3 py-2 text-sm text-slate-900 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 dark:border-slate-700 dark:text-white">
+                                    <label for="form-sender-name" class="block text-xs font-semibold text-slate-400">Nama Anda / Instansi</label>
+                                    <input type="text" id="form-sender-name" required class="w-full rounded-xl border border-slate-800 bg-slate-950/60 px-3 py-2 text-sm text-white focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500">
                                 </div>
                                 <div class="space-y-1.5">
-                                    <label for="form-sender-email" class="block text-xs font-semibold text-slate-600 dark:text-slate-400">Email Anda</label>
-                                    <input type="email" id="form-sender-email" required class="w-full rounded-xl border border-slate-300 bg-transparent px-3 py-2 text-sm text-slate-900 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 dark:border-slate-700 dark:text-white">
+                                    <label for="form-sender-email" class="block text-xs font-semibold text-slate-400">Email Anda</label>
+                                    <input type="email" id="form-sender-email" required class="w-full rounded-xl border border-slate-800 bg-slate-950/60 px-3 py-2 text-sm text-white focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500">
                                 </div>
                             </div>
                             
                             <div class="space-y-1.5">
-                                <label for="form-sender-subject" class="block text-xs font-semibold text-slate-600 dark:text-slate-400">Subjek Hubungan</label>
-                                <select id="form-sender-subject" class="w-full rounded-xl border border-slate-300 bg-transparent px-3 py-2 text-sm text-slate-900 focus:border-sky-500 focus:outline-none dark:border-slate-700 dark:bg-slate-900 dark:text-white">
-                                    <option value="Magang">Peluang Prakerin / Magang</option>
-                                    <option value="Pekerjaan">Tawaran Kerja Penuh Waktu</option>
-                                    <option value="Freelance">Projek Freelance / Jasa Freelance</option>
-                                    <option value="Tanya">Pertanyaan Umum</option>
+                                <label for="form-sender-subject" class="block text-xs font-semibold text-slate-400">Subjek Hubungan</label>
+                                <select id="form-sender-subject" class="w-full rounded-xl border border-slate-800 bg-slate-950/60 px-3 py-2 text-sm text-white focus:border-sky-500 focus:outline-none">
+                                    <option class="bg-slate-950" value="Magang">Peluang Prakerin / Magang</option>
+                                    <option class="bg-slate-950" value="Pekerjaan">Tawaran Kerja Penuh Waktu</option>
+                                    <option class="bg-slate-950" value="Freelance">Projek Freelance / Jasa Freelance</option>
+                                    <option class="bg-slate-950" value="Tanya">Pertanyaan Umum</option>
                                 </select>
                             </div>
 
                             <div class="space-y-1.5">
-                                <label for="form-sender-message" class="block text-xs font-semibold text-slate-600 dark:text-slate-400">Isi Pesan</label>
-                                <textarea id="form-sender-message" rows="4" required placeholder="Tulis penawaran kerja sama di sini..." class="w-full rounded-xl border border-slate-300 bg-transparent px-3 py-2 text-sm text-slate-900 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 dark:border-slate-700 dark:text-white"></textarea>
+                                <label for="form-sender-message" class="block text-xs font-semibold text-slate-400">Isi Pesan</label>
+                                <textarea id="form-sender-message" rows="4" required placeholder="Tulis penawaran kerja sama di sini..." class="w-full rounded-xl border border-slate-800 bg-slate-950/60 px-3 py-2 text-sm text-white focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"></textarea>
                             </div>
 
                             <button type="submit" class="w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 py-3 text-center text-sm font-semibold text-white shadow-lg shadow-sky-500/10 hover:brightness-105 active:scale-[0.98] transition">
@@ -536,16 +539,16 @@
     </section>
 
     <!-- FOOTER -->
-    <footer class="bg-slate-900 py-12 text-slate-400 text-center border-t border-slate-800">
+    <footer class="bg-slate-950 py-12 text-slate-400 text-center border-t border-slate-900">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-4">
             <div class="flex justify-center gap-4">
-                <a href="#" class="h-8 w-8 flex items-center justify-center rounded-full bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition">
+                <a href="#" class="h-8 w-8 flex items-center justify-center rounded-full bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800 transition">
                     <i class="fa-brands fa-github"></i>
                 </a>
-                <a href="#" class="h-8 w-8 flex items-center justify-center rounded-full bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition">
+                <a href="#" class="h-8 w-8 flex items-center justify-center rounded-full bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800 transition">
                     <i class="fa-brands fa-linkedin-in"></i>
                 </a>
-                <a href="#" class="h-8 w-8 flex items-center justify-center rounded-full bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition">
+                <a href="#" class="h-8 w-8 flex items-center justify-center rounded-full bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800 transition">
                     <i class="fa-brands fa-instagram"></i>
                 </a>
             </div>
@@ -558,53 +561,51 @@
 
     <!-- Interactive Modals / Custom Notification Overlay -->
     <div id="toast-notif" class="fixed bottom-6 right-6 z-50 transform translate-y-12 opacity-0 pointer-events-none transition-all duration-300">
-        <div class="flex items-center gap-3 rounded-2xl bg-slate-900 px-4 py-3 text-white shadow-2xl dark:bg-white dark:text-slate-900 border border-slate-800 dark:border-slate-200">
+        <div class="flex items-center gap-3 rounded-2xl bg-slate-900 px-4 py-3 text-white shadow-2xl border border-slate-800">
             <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500 text-white">
                 <i class="fa-solid fa-circle-check"></i>
             </div>
             <div>
                 <p class="text-sm font-bold" id="toast-title">Berhasil Tersimpan!</p>
-                <p class="text-xs text-slate-400 dark:text-slate-600" id="toast-message">Perubahan data portofolio sukses diaplikasikan.</p>
+                <p class="text-xs text-slate-400" id="toast-message">Perubahan data portofolio sukses diaplikasikan.</p>
             </div>
         </div>
     </div>
 
     <!-- Certificate Visual Modal -->
-    <div id="cert-modal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm items-center justify-center p-4">
-        <div class="relative w-full max-w-2xl rounded-3xl bg-white p-6 shadow-2xl dark:bg-slate-900">
-            <div class="flex items-center justify-between border-b border-slate-100 pb-3 dark:border-slate-800">
-                <h3 class="font-bold text-slate-900 dark:text-white" id="modal-cert-title">Detail Sertifikat</h3>
-                <button onclick="closeCertModal()" class="rounded-lg p-1 text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800">
+    <div id="cert-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm items-center justify-center p-4">
+        <div class="relative w-full max-w-2xl rounded-3xl bg-slate-900 border border-slate-800 p-6 shadow-2xl">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <h3 class="font-bold text-white" id="modal-cert-title">Detail Sertifikat</h3>
+                <button onclick="closeCertModal()" class="rounded-lg p-1 text-slate-400 hover:bg-slate-800">
                     <i class="fa-solid fa-xmark text-lg"></i>
                 </button>
             </div>
             <div class="mt-4 flex flex-col md:flex-row gap-6">
-                <div class="w-full md:w-1/2 flex items-center justify-center bg-slate-50 dark:bg-slate-950 p-4 rounded-xl border border-slate-200 dark:border-slate-800" id="modal-cert-visual">
+                <div class="w-full md:w-1/2 flex items-center justify-center bg-slate-950 p-4 rounded-xl border border-slate-800" id="modal-cert-visual">
                     <!-- Dynamic Graphic -->
                 </div>
                 <div class="w-full md:w-1/2 space-y-4">
                     <div>
-                        <span class="text-[10px] font-bold text-sky-500 dark:text-sky-400 uppercase tracking-widest">PEMBERI SERTIFIKASI</span>
-                        <h4 class="font-bold text-slate-800 dark:text-slate-200" id="modal-cert-issuer">Badan Nasional Sertifikasi Profesi (BNSP)</h4>
+                        <span class="text-[10px] font-bold text-sky-400 uppercase tracking-widest">PEMBERI SERTIFIKASI</span>
+                        <h4 class="font-bold text-slate-200" id="modal-cert-issuer">Badan Nasional Sertifikasi Profesi (BNSP)</h4>
                     </div>
                     <div>
                         <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">NOMOR SERTIFIKAT</span>
-                        <p class="text-sm font-mono text-slate-600 dark:text-slate-300" id="modal-cert-number">REG.RPL.123.456</p>
+                        <p class="text-sm font-mono text-slate-300" id="modal-cert-number">REG.RPL.123.456</p>
                     </div>
                     <div>
                         <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">DESKRIPSI LISENSI</span>
-                        <p class="text-sm text-slate-600 dark:text-slate-400" id="modal-cert-desc">Merupakan tanda kelulusan ujian kompetensi resmi tingkat nasional yang membuktikan kemahiran dalam lingkup keahlian kejuruan.</p>
+                        <p class="text-sm text-slate-400" id="modal-cert-desc">Merupakan tanda kelulusan ujian kompetensi resmi tingkat nasional yang membuktikan kemahiran dalam lingkup keahlian kejuruan.</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-
     <!-- JAVASCRIPT LOGIC -->
     <script>
         // Core Database for Dynamic SMK Majors: RPL, TKJ, DKV
-        // Menaruh file "Desain tanpa judul.jpg" dengan URL encoded agar tidak pecah karena adanya spasi
         const dataJurusan = {
             rpl: {
                 badgeTitle: "Siswa SMK - Jurusan Pengembangan Perangkat Lunak dan Gim (PPLG)",
@@ -612,6 +613,7 @@
                 avatarSvg: `<img src="Desain%20tanpa%20judul.jpg" alt="Atha Yan Putra" class="w-full h-full object-cover rounded-full shadow-inner border-2 border-sky-500" onerror="this.onerror=null; this.src='https://placehold.co/400x400/0284c7/ffffff?text=Atha+Yan+Putra'">`,
                 floatBadgeIcon: "fa-solid fa-code",
                 floatBadgeText: "LSP Web Dev Certified",
+                glowColor: "rgba(14, 165, 233, 0.4)", // Blue Glow
                 aboutIntro: "Halo! Saya Atha Yan Putra, seorang siswa jurusan Pengembangan Perangkat Lunak dan Gim (PPLG) di SMK Negeri 4 Bandar Lampung. Saya memiliki minat yang besar di bidang teknologi, khususnya dalam pengembangan website, pemrograman, dan pembuatan aplikasi. Selama menempuh pendidikan, saya telah mempelajari berbagai bahasa pemrograman dan teknologi web, serta terus mengembangkan kemampuan melalui berbagai proyek dan latihan mandiri.\n\nSaya memiliki pengalaman dalam dunia coding, mulai dari membangun website sederhana hingga mengembangkan aplikasi berbasis web. Saya senang mempelajari teknologi baru, memecahkan masalah melalui pemrograman, dan menciptakan solusi digital yang bermanfaat. Bagi saya, setiap proyek merupakan kesempatan untuk terus belajar, meningkatkan kemampuan, dan menghasilkan karya yang lebih baik.",
                 stepKelas10Title: "Logika Algoritma & Dasprog HTML/CSS",
                 stepKelas10Desc: "Fokus belajar pengkondisian logic, perulangan, sintaks OOP dasar, serta cara merancang layout website statis responsive.",
@@ -642,6 +644,7 @@
                 avatarSvg: `<img src="Desain%20tanpa%20judul.jpg" alt="Atha Yan Putra" class="w-full h-full object-cover rounded-full shadow-inner border-2 border-emerald-500" onerror="this.onerror=null; this.src='https://placehold.co/400x400/16a34a/ffffff?text=Atha+Yan+Putra'">`,
                 floatBadgeIcon: "fa-solid fa-wifi",
                 floatBadgeText: "MTCNA Cisco Certified",
+                glowColor: "rgba(16, 185, 129, 0.3)", // Green Glow
                 aboutIntro: "Sebagai siswa TKJ, fokus keahlian saya adalah perancangan topologi jaringan, instalasi sistem operasi server, administrasi router (MikroTik/Cisco), serta keamanan sistem cyber. Saya siap berkontribusi sebagai IT Support/Network Admin.",
                 stepKelas10Title: "Dasar Jaringan & Perakitan Hardware",
                 stepKelas10Desc: "Memahami model OSI Layer, pengkabelan (LAN/Fiber Optic), troubleshooting PC, serta instalasi sistem operasi client.",
@@ -651,8 +654,8 @@
                 stepKelas12Desc: "Merancang infrastruktur jaringan nirkabel dilengkapi fitur billing payment voucher dengan pengawasan penguji industri.",
                 skills: [
                     { name: "Router & Switch Configuration", desc: "Konfigurasi routing MikroTik & Cisco Switch.", level: 88, icon: "fa-solid fa-server text-emerald-600" },
-                    { name: "Linux Server Management", desc: "Konfigurasi DNS, Web Server, DHCP di Debian.", level: 82, icon: "fa-brands fa-linux text-slate-800" },
-                    { name: "IP Subnetting & Routing", desc: "Perhitungan efisiensi IP kelas A/B/C.", level: 90, icon: "fa-solid fa-network-wired text-sky-500" },
+                    { name: "Linux Server Management", desc: "Konfigurasi DNS, Web Server, DHCP di Debian.", level: 82, icon: "fa-brands fa-linux text-slate-400" },
+                    { name: "IP Subnetting & Routing", desc: "Perhitungan efisiensi IP kelas A/B/C.", level: 90, icon: "fa-solid fa-network-wired text-sky-400" },
                     { name: "Kabeling & Fiber Optic", desc: "Penyambungan (splicing) & pengetesan kabel.", level: 75, icon: "fa-solid fa-bolt text-amber-500" }
                 ],
                 projects: [
@@ -671,6 +674,7 @@
                 avatarSvg: `<img src="Desain%20tanpa%20judul.jpg" alt="Atha Yan Putra" class="w-full h-full object-cover rounded-full shadow-inner border-2 border-purple-500" onerror="this.onerror=null; this.src='https://placehold.co/400x400/9333ea/ffffff?text=Atha+Yan+Putra'">`,
                 floatBadgeIcon: "fa-solid fa-palette",
                 floatBadgeText: "Adobe Certified",
+                glowColor: "rgba(168, 85, 247, 0.3)", // Purple Glow
                 aboutIntro: "Sebagai siswa DKV, saya menguasai dasar estetika rupa, branding identitas visual, produksi fotografi & videografi, serta pembuatan ilustrasi vector. Saya siap berkontribusi kreatif sebagai Junior Graphic Designer/Video Editor.",
                 stepKelas10Title: "Dasar Rupa, Komposisi Warna & Nirmana",
                 stepKelas10Desc: "Mengasah kepekaan warna, perspektif gambar manual, tipografi dasar, serta pengenalan awal software ilustrasi.",
@@ -679,15 +683,15 @@
                 stepKelas12Title: "Uji Kompetensi Keahlian (UKK) Desain Branding",
                 stepKelas12Desc: "Merancang secara lengkap buku panduan logo perusahaan (Graphic Standard Manual) mulai dari konsep visual sampai packaging.",
                 skills: [
-                    { name: "Adobe Illustrator / Vector Art", desc: "Pembuatan aset visual tanpa pecah (resolusi tinggi).", level: 92, icon: "fa-solid fa-bezier-curve text-purple-500" },
-                    { name: "Adobe Photoshop / Photo Manipulation", desc: "Retouching foto produk serta poster digital.", level: 85, icon: "fa-solid fa-wand-magic text-sky-500" },
-                    { name: "Video Editing (Premiere / CapCut)", desc: "Pemotongan klip, coloring, audio mixing video promosi.", level: 80, icon: "fa-solid fa-video text-rose-500" },
-                    { name: "UI/UX Mockup (Figma)", desc: "Mendesain interface aplikasi interaktif mobile/web.", level: 75, icon: "fa-brands fa-figma text-orange-600" }
+                    { name: "Adobe Illustrator / Vector Art", desc: "Pembuatan aset visual tanpa pecah (resolusi tinggi).", level: 92, icon: "fa-solid fa-bezier-curve text-purple-400" },
+                    { name: "Adobe Photoshop / Photo Manipulation", desc: "Retouching foto produk serta poster digital.", level: 85, icon: "fa-solid fa-wand-magic text-sky-400" },
+                    { name: "Video Editing (Premiere / CapCut)", desc: "Pemotongan klip, coloring, audio mixing video promosi.", level: 80, icon: "fa-solid fa-video text-rose-400" },
+                    { name: "UI/UX Mockup (Figma)", desc: "Mendesain interface aplikasi interaktif mobile/web.", level: 75, icon: "fa-brands fa-figma text-orange-500" }
                 ],
                 projects: [
                     { title: "Desain Rebranding UMKM Kopi Lokal", type: "sekolah", tech: "Ilustrator & Mockups", desc: "Merancang ulang kemasan, logo, & feed Instagram produk kopi lokal guna meningkatkan omset penjualan.", status: "UKK Terbaik" },
-                    { title: "Klip Video Profil Perusahaan Swasta", type: "pkl", tech: "Premiere Pro / DSLR", desc: "Berperan sebagai tim juru kamera sekaligus editor video company profile berdurasi 3 menit.", status: "Dipublikasikan" },
-                    { title: "Koleksi Maskot & Ilustrasi Komik Strip", type: "pribadi", tech: "IbisPaint / Digital Art", desc: "Eksperimen pribadi menggambar karakter komik harian yang diupload di media sosial.", status: "Projek Berjalan" }
+                    { title: "Klip Video Profil Perusahaan Swasta", type: "pkl", tech: "Video DSLR", desc: "Berperan sebagai tim juru kamera sekaligus editor video company profile berdurasi 3 menit.", status: "Dipublikasikan" },
+                    { title: "Koleksi Maskot & Ilustrasi Komik Strip", type: "pribadi", tech: "Digital Art", desc: "Eksperimen pribadi menggambar karakter komik harian yang diupload di media sosial.", status: "Projek Berjalan" }
                 ],
                 certs: [
                     { title: "LSP P1 BNSP - Junior Graphic Designer", issuer: "LSP SMK / BNSP", number: "REG.DKV.2201.2025", desc: "Sertifikasi kompetensi melakukan rancangan konsep visual, pengaplikasian tipografi, serta penyiapan file pra-cetak." },
@@ -709,7 +713,7 @@
             
             // Render everything based on initial state
             renderCurrentMajorData();
-            showToast("Selamat Datang!", "Silakan ubah data di panel kanan untuk kustomisasi.");
+            showToast("Selamat Datang!", "Tema gelap grid blueprint telah diaplikasikan.");
         }
 
         // Function to render content dynamically based on selected SMK major
@@ -721,18 +725,21 @@
             const email = document.getElementById('input-email').value;
             const phone = document.getElementById('input-phone').value;
 
+            // Update CSS variable for the dynamic background glow
+            document.documentElement.style.setProperty('--glow-color', data.glowColor);
+
             // Update badge & title in Hero
             document.getElementById('badge-jurusan-title').innerText = data.badgeTitle;
             document.getElementById('hero-name').innerText = name;
             document.getElementById('hero-major-bold').innerText = data.heroBold;
             document.getElementById('hero-school').innerText = school;
-            document.getElementById('hero-subtext').innerHTML = `Saya siswa jurusan <span class="font-bold text-sky-500 dark:text-sky-400">${data.heroBold}</span> dari <span class="font-bold text-indigo-500 dark:text-indigo-400">${school}</span>. ${bio}`;
+            document.getElementById('hero-subtext').innerHTML = `Saya siswa jurusan <span class="font-bold text-sky-400">${data.heroBold}</span> dari <span class="font-bold text-indigo-400">${school}</span>. ${bio}`;
 
-            // Update Avatar Vector
+            // Update Avatar
             document.getElementById('avatar-container').innerHTML = data.avatarSvg;
             
             // Update Floating Badges
-            document.getElementById('float-badge-icon').className = `${data.floatBadgeIcon} text-indigo-500`;
+            document.getElementById('float-badge-icon').className = `${data.floatBadgeIcon} text-indigo-400`;
             document.getElementById('float-badge-text').innerText = data.floatBadgeText;
 
             // Update About me
@@ -763,18 +770,18 @@
             skillsGrid.innerHTML = '';
             data.skills.forEach(skill => {
                 skillsGrid.innerHTML += `
-                    <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-950/40 hover:scale-[1.02] hover:shadow-md transition duration-300">
+                    <div class="rounded-2xl border border-slate-800 bg-slate-900/40 backdrop-blur-sm p-5 shadow-sm hover:scale-[1.02] hover:shadow-lg hover:border-slate-700 transition duration-300">
                         <div class="flex items-center justify-between mb-4">
                             <div class="flex items-center gap-3">
-                                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800">
+                                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-950 border border-slate-800">
                                     <i class="${skill.icon} text-xl"></i>
                                 </div>
-                                <h4 class="font-bold text-slate-800 dark:text-slate-200 text-sm">${skill.name}</h4>
+                                <h4 class="font-bold text-slate-200 text-sm">${skill.name}</h4>
                             </div>
-                            <span class="text-xs font-bold bg-sky-50 dark:bg-sky-950/50 text-sky-600 dark:text-sky-400 px-2 py-0.5 rounded-full">${skill.level}%</span>
+                            <span class="text-xs font-bold bg-sky-950 border border-sky-500/25 text-sky-400 px-2 py-0.5 rounded-full">${skill.level}%</span>
                         </div>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">${skill.desc}</p>
-                        <div class="h-1.5 w-full rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">${skill.desc}</p>
+                        <div class="h-1.5 w-full rounded-full bg-slate-950 overflow-hidden border border-slate-800/80">
                             <div class="h-full rounded-full bg-gradient-to-r from-sky-500 to-indigo-600" style="width: ${skill.level}%"></div>
                         </div>
                     </div>
@@ -789,14 +796,14 @@
             certsList.innerHTML = '';
             data.certs.forEach((cert, idx) => {
                 certsList.innerHTML += `
-                    <div onclick="openCertModal(${idx})" class="group cursor-pointer flex items-start gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-950/40 hover:border-indigo-400 dark:hover:border-indigo-500 transition-all">
-                        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 group-hover:scale-105 transition-transform">
+                    <div onclick="openCertModal(${idx})" class="group cursor-pointer flex items-start gap-4 rounded-2xl border border-slate-800 bg-slate-900/40 backdrop-blur-sm p-4 shadow-sm hover:border-indigo-500 transition-all">
+                        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-indigo-950/80 border border-indigo-500/20 text-indigo-400 group-hover:scale-105 transition-transform">
                             <i class="fa-solid fa-award text-2xl"></i>
                         </div>
                         <div class="space-y-1">
-                            <h4 class="font-bold text-slate-800 dark:text-slate-200 text-sm leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">${cert.title}</h4>
-                            <span class="block text-xs text-slate-400 font-medium">${cert.issuer}</span>
-                            <span class="inline-flex items-center gap-1.5 text-[10px] font-semibold text-emerald-600 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-full mt-1">
+                            <h4 class="font-bold text-slate-200 text-sm leading-snug group-hover:text-indigo-400 transition-colors">${cert.title}</h4>
+                            <span class="block text-xs text-slate-500 font-medium">${cert.issuer}</span>
+                            <span class="inline-flex items-center gap-1.5 text-[10px] font-semibold text-emerald-400 bg-emerald-950/50 border border-emerald-500/20 px-2 py-0.5 rounded-full mt-1">
                                 <i class="fa-solid fa-circle-check"></i> Aktif & Terverifikasi
                             </span>
                         </div>
@@ -817,7 +824,7 @@
 
             if (filtered.length === 0) {
                 projGrid.innerHTML = `
-                    <div class="col-span-full py-12 text-center text-slate-400">
+                    <div class="col-span-full py-12 text-center text-slate-500">
                         <i class="fa-solid fa-folder-open text-4xl mb-3 block"></i>
                         <p class="text-sm">Belum ada projek di kategori ini.</p>
                     </div>
@@ -826,39 +833,38 @@
             }
 
             filtered.forEach(proj => {
-                // Style icon based on project category
-                const tagColor = proj.type === 'sekolah' ? 'bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400' 
-                               : proj.type === 'pkl' ? 'bg-sky-50 dark:bg-sky-950/40 text-sky-600 dark:text-sky-400' 
-                               : 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400';
+                const tagColor = proj.type === 'sekolah' ? 'bg-indigo-950 border border-indigo-500/20 text-indigo-400' 
+                               : proj.type === 'pkl' ? 'bg-sky-950 border border-sky-500/20 text-sky-400' 
+                               : 'bg-emerald-950 border border-emerald-500/20 text-emerald-400';
 
                 const labelType = proj.type === 'sekolah' ? 'Tugas Sekolah' 
                                 : proj.type === 'pkl' ? 'Projek PKL' 
                                 : 'Projek Mandiri';
 
                 projGrid.innerHTML += `
-                    <div class="flex flex-col rounded-3xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-950/40 overflow-hidden hover:shadow-md hover:scale-[1.01] transition duration-300">
-                        <div class="relative bg-slate-50 dark:bg-slate-900 p-6 flex items-center justify-center border-b border-slate-100 dark:border-slate-800">
+                    <div class="flex flex-col rounded-3xl border border-slate-800 bg-slate-900/30 backdrop-blur-sm overflow-hidden hover:shadow-lg hover:border-slate-700 transition duration-300">
+                        <div class="relative bg-slate-950 p-6 flex items-center justify-center border-b border-slate-900">
                             <!-- Visual placeholder based on major -->
                             <div class="text-center py-6">
                                 <div class="text-5xl mb-2 opacity-80">
                                     ${activeJurusan === 'rpl' ? '💻' : activeJurusan === 'tkj' ? '🔌' : '🎨'}
                                 </div>
-                                <span class="text-[10px] font-bold font-mono text-slate-400">${proj.tech}</span>
+                                <span class="text-[10px] font-bold font-mono text-slate-500">${proj.tech}</span>
                             </div>
                         </div>
                         <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
                             <div class="space-y-2">
                                 <div class="flex items-center justify-between">
                                     <span class="text-[10px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-full ${tagColor}">${labelType}</span>
-                                    <span class="text-[10px] font-medium text-slate-400">${proj.status}</span>
+                                    <span class="text-[10px] font-medium text-slate-500">${proj.status}</span>
                                 </div>
-                                <h3 class="text-base font-bold text-slate-800 dark:text-slate-200">${proj.title}</h3>
-                                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">${proj.desc}</p>
+                                <h3 class="text-base font-bold text-slate-200">${proj.title}</h3>
+                                <p class="text-xs text-slate-400 leading-relaxed">${proj.desc}</p>
                             </div>
                             
-                            <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
-                                <span class="font-semibold text-slate-600 dark:text-slate-400">Teknologi: ${proj.tech}</span>
-                                <button onclick="showProjectDetails('${proj.title}', '${proj.desc}', '${proj.tech}')" class="text-sky-500 font-bold hover:underline">Detail <i class="fa-solid fa-arrow-up-right-from-square text-[9px] ml-1"></i></button>
+                            <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
+                                <span class="font-semibold text-slate-400">Teknologi: ${proj.tech}</span>
+                                <button onclick="showProjectDetails('${proj.title}', '${proj.desc}', '${proj.tech}')" class="text-sky-400 font-bold hover:underline">Detail <i class="fa-solid fa-arrow-up-right-from-square text-[9px] ml-1"></i></button>
                             </div>
                         </div>
                     </div>
@@ -873,17 +879,17 @@
             ['rpl', 'tkj', 'dkv'].forEach(key => {
                 const btn = document.getElementById(`btn-jurusan-${key}`);
                 if (key === majorKey) {
-                    btn.className = "flex flex-col items-center gap-1.5 rounded-xl border-2 border-sky-500 bg-sky-50/50 p-2.5 text-center text-xs font-bold text-sky-700 transition dark:bg-sky-950/20";
+                    btn.className = "flex flex-col items-center gap-1.5 rounded-xl border-2 border-sky-500 bg-sky-950/40 p-2.5 text-center text-xs font-bold text-sky-400 transition";
                 } else {
-                    btn.className = "flex flex-col items-center gap-1.5 rounded-xl border border-slate-200 p-2.5 text-center text-xs font-medium text-slate-600 transition hover:border-slate-300 dark:border-slate-800 dark:text-slate-400";
+                    btn.className = "flex flex-col items-center gap-1.5 rounded-xl border border-slate-800 p-2.5 text-center text-xs font-medium text-slate-400 transition hover:border-slate-700";
                 }
             });
 
             renderCurrentMajorData();
-            showToast("Jurusan Berubah!", `Kini menampilkan spesifikasi jurusan ${majorKey.toUpperCase()}.`);
+            showToast("Jurusan Berubah!", `Tampilan dan pendaran grid disesuaikan ke ${majorKey.toUpperCase()}.`);
         }
 
-        // Apply visual updates on text key-ups
+        // Apply visual updates on text inputs
         function updatePersonalData() {
             renderCurrentMajorData();
         }
@@ -918,21 +924,6 @@
             menu.classList.toggle('hidden');
         }
 
-        // Toggle Theme Dark / Light mode
-        function toggleDarkMode() {
-            const html = document.documentElement;
-            const icon = document.getElementById('theme-icon');
-            if (html.classList.contains('dark')) {
-                html.classList.remove('dark');
-                icon.className = "fa-solid fa-moon text-slate-600 text-lg";
-                showToast("Mode Terang", "Berhasil beralih ke tampilan siang.");
-            } else {
-                html.classList.add('dark');
-                icon.className = "fa-solid fa-sun text-amber-400 text-lg";
-                showToast("Mode Gelap", "Berhasil beralih ke tampilan malam.");
-            }
-        }
-
         // Handle Dynamic Filter Click UI states
         function filterProjects(category) {
             const buttons = document.querySelectorAll('#project-filters button');
@@ -940,7 +931,7 @@
                 if (btn.id === `filter-${category}`) {
                     btn.className = "rounded-lg bg-sky-500 px-4 py-1.5 text-xs font-semibold text-white transition";
                 } else {
-                    btn.className = "rounded-lg bg-white dark:bg-slate-800 px-4 py-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-50 transition border border-slate-200 dark:border-slate-700";
+                    btn.className = "rounded-lg bg-slate-900 border border-slate-800 px-4 py-1.5 text-xs font-semibold text-slate-300 hover:bg-slate-800 transition";
                 }
             });
             renderFilteredProjects(category);
@@ -956,11 +947,11 @@
 
             // Generate nice graphic inside the modal
             document.getElementById('modal-cert-visual').innerHTML = `
-                <div class="text-center p-8 border-4 border-double border-indigo-200 rounded-lg max-w-xs bg-white dark:bg-slate-950">
-                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-2">Piagam Lisensi</span>
-                    <i class="fa-solid fa-ribbon text-4xl text-indigo-500 mb-2"></i>
-                    <h5 class="text-sm font-extrabold text-slate-800 dark:text-slate-200 leading-tight">${data.title}</h5>
-                    <p class="text-[9px] text-slate-400 mt-2">${data.number}</p>
+                <div class="text-center p-8 border-4 border-double border-indigo-500/30 rounded-lg max-w-xs bg-slate-950">
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-2">Piagam Lisensi</span>
+                    <i class="fa-solid fa-ribbon text-4xl text-indigo-400 mb-2"></i>
+                    <h5 class="text-sm font-extrabold text-slate-200 leading-tight">${data.title}</h5>
+                    <p class="text-[9px] text-slate-500 mt-2">${data.number}</p>
                 </div>
             `;
 
@@ -981,9 +972,9 @@
             
             // Visual for project
             document.getElementById('modal-cert-visual').innerHTML = `
-                <div class="text-center p-8 bg-slate-100 dark:bg-slate-900 rounded-xl w-full">
+                <div class="text-center p-8 bg-slate-950 rounded-xl w-full border border-slate-850">
                     <span class="text-5xl block mb-2">📁</span>
-                    <span class="text-xs font-bold text-slate-700 dark:text-slate-300 block">${title}</span>
+                    <span class="text-xs font-bold text-slate-300 block">${title}</span>
                 </div>
             `;
             document.getElementById('cert-modal').classList.remove('hidden');
