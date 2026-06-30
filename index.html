@@ -143,7 +143,7 @@
             <!-- School Input -->
             <div class="space-y-1.5">
                 <label for="input-school" class="block text-xs font-semibold text-slate-600 dark:text-slate-400">Nama SMK</label>
-                <input type="text" id="input-school" value="SMK Negeri 1 Kota Kreatif" oninput="updatePersonalData()" class="w-full rounded-xl border border-slate-300 bg-transparent px-3 py-2 text-sm text-slate-900 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 dark:border-slate-700 dark:text-white">
+                <input type="text" id="input-school" value="SMK Negeri 4 Bandar Lampung" oninput="updatePersonalData()" class="w-full rounded-xl border border-slate-300 bg-transparent px-3 py-2 text-sm text-slate-900 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 dark:border-slate-700 dark:text-white">
             </div>
 
             <!-- Bio Input -->
@@ -201,7 +201,7 @@
                     </h1>
 
                     <p id="hero-subtext" class="mx-auto lg:mx-0 max-w-xl text-lg text-slate-600 dark:text-slate-300">
-                        Saya siswa jurusan <span class="font-bold text-sky-500 dark:text-sky-400" id="hero-major-bold">RPL (Rekayasa Perangkat Lunak)</span> dari <span class="font-bold text-indigo-500 dark:text-indigo-400" id="hero-school">SMK Negeri 1 Kota Kreatif</span>. Berfokus pada pengembangan aplikasi web, algoritma, dan siap melaksanakan magang/kerja.
+                        Saya siswa jurusan <span class="font-bold text-sky-500 dark:text-sky-400" id="hero-major-bold">RPL (Rekayasa Perangkat Lunak)</span> dari <span class="font-bold text-indigo-500 dark:text-indigo-400" id="hero-school">SMK Negeri 4 Bandar Lampung</span>. Berfokus pada pengembangan aplikasi web, algoritma, dan siap melaksanakan magang/kerja.
                     </p>
 
                     <div class="flex flex-wrap justify-center lg:justify-start gap-4 pt-4">
@@ -273,21 +273,23 @@
                     <span class="text-sm font-semibold text-sky-500 uppercase tracking-widest">PROFIL SAYA</span>
                     <h2 class="text-3xl font-bold text-slate-900 dark:text-white">Tentang Diri & Minat Karir</h2>
                     <p class="text-slate-600 dark:text-slate-300 leading-relaxed" id="about-intro">
-                        Sebagai siswa SMK yang berfokus pada teknologi dan praktikal, saya telah dilatih untuk selalu berpikir logis, disiplin, dan terbiasa dengan budaya kerja industri. Ketertarikan mendalam saya pada industri kreatif memicu saya untuk terus meningkatkan skill lewat projek-projek mandiri.
+                        Halo! Saya Atha Yan Putra, seorang siswa jurusan Pengembangan Perangkat Lunak dan Gim (PPLG) di SMK Negeri 4 Bandar Lampung. Saya memiliki minat yang besar di bidang teknologi, khususnya dalam pengembangan website, pemrograman, dan pembuatan aplikasi. Selama menempuh pendidikan, saya telah mempelajari berbagai bahasa pemrograman dan teknologi web, serta terus mengembangkan kemampuan melalui berbagai proyek dan latihan mandiri.
+                        <br><br>
+                        Saya memiliki pengalaman dalam dunia coding, mulai dari membangun website sederhana hingga mengembangkan aplikasi berbasis web. Saya senang mempelajari teknologi baru, memecahkan masalah melalui pemrograman, dan menciptakan solusi digital yang bermanfaat. Bagi saya, setiap proyek merupakan kesempatan untuk terus belajar, meningkatkan kemampuan, dan menghasilkan karya yang lebih baik.
                     </p>
                     <div class="rounded-2xl border border-slate-100 bg-slate-50 dark:border-slate-800 dark:bg-slate-900 p-4 space-y-3">
                         <div class="flex items-center gap-3">
                             <i class="fa-solid fa-school text-sky-500 text-lg"></i>
                             <div>
                                 <span class="block text-xs text-slate-400">Asal Institusi</span>
-                                <span class="text-sm font-semibold text-slate-800 dark:text-slate-200" id="about-school">SMK Negeri 1 Kota Kreatif</span>
+                                <span class="text-sm font-semibold text-slate-800 dark:text-slate-200" id="about-school">SMK Negeri 4 Bandar Lampung</span>
                             </div>
                         </div>
                         <div class="flex items-center gap-3">
                             <i class="fa-solid fa-graduation-cap text-indigo-500 text-lg"></i>
                             <div>
                                 <span class="block text-xs text-slate-400">Kompetensi Keahlian (Major)</span>
-                                <span class="text-sm font-semibold text-slate-800 dark:text-slate-200" id="about-major">Rekayasa Perangkat Lunak</span>
+                                <span class="text-sm font-semibold text-slate-800 dark:text-slate-200" id="about-major">Pengembangan Perangkat Lunak dan Gim (PPLG)</span>
                             </div>
                         </div>
                     </div>
@@ -411,7 +413,7 @@
                             </span>
                             <span class="text-xs font-semibold text-indigo-600 dark:text-indigo-400">2024 - Sekarang</span>
                             <h3 class="text-lg font-bold text-slate-800 dark:text-slate-200">Siswa Vokasi</h3>
-                            <p class="text-sm font-semibold text-slate-500 dark:text-slate-400" id="experience-school-name">SMK Negeri 1 Kota Kreatif</p>
+                            <p class="text-sm font-semibold text-slate-500 dark:text-slate-400" id="experience-school-name">SMK Negeri 4 Bandar Lampung</p>
                             <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Mengambil kompetensi utama kejuruan yang menekankan pada kemampuan praktek siap kerja di industri modern.</p>
                         </div>
 
@@ -605,12 +607,12 @@
         // Menaruh file "Desain tanpa judul.jpg" dengan URL encoded agar tidak pecah karena adanya spasi
         const dataJurusan = {
             rpl: {
-                badgeTitle: "Siswa SMK - Jurusan Rekayasa Perangkat Lunak (RPL)",
-                heroBold: "RPL (Rekayasa Perangkat Lunak)",
+                badgeTitle: "Siswa SMK - Jurusan Pengembangan Perangkat Lunak dan Gim (PPLG)",
+                heroBold: "PPLG (Pengembangan Perangkat Lunak & Gim)",
                 avatarSvg: `<img src="Desain%20tanpa%20judul.jpg" alt="Atha Yan Putra" class="w-full h-full object-cover rounded-full shadow-inner border-2 border-sky-500" onerror="this.onerror=null; this.src='https://placehold.co/400x400/0284c7/ffffff?text=Atha+Yan+Putra'">`,
                 floatBadgeIcon: "fa-solid fa-code",
                 floatBadgeText: "LSP Web Dev Certified",
-                aboutIntro: "Sebagai siswa RPL (Rekayasa Perangkat Lunak), saya terlatih merancang database relasional, merakit code website front-end maupun back-end, serta menyelesaikan bug pemrograman. Saya tertarik menekuni karir sebagai Junior Web Developer.",
+                aboutIntro: "Halo! Saya Atha Yan Putra, seorang siswa jurusan Pengembangan Perangkat Lunak dan Gim (PPLG) di SMK Negeri 4 Bandar Lampung. Saya memiliki minat yang besar di bidang teknologi, khususnya dalam pengembangan website, pemrograman, dan pembuatan aplikasi. Selama menempuh pendidikan, saya telah mempelajari berbagai bahasa pemrograman dan teknologi web, serta terus mengembangkan kemampuan melalui berbagai proyek dan latihan mandiri.\n\nSaya memiliki pengalaman dalam dunia coding, mulai dari membangun website sederhana hingga mengembangkan aplikasi berbasis web. Saya senang mempelajari teknologi baru, memecahkan masalah melalui pemrograman, dan menciptakan solusi digital yang bermanfaat. Bagi saya, setiap proyek merupakan kesempatan untuk terus belajar, meningkatkan kemampuan, dan menghasilkan karya yang lebih baik.",
                 stepKelas10Title: "Logika Algoritma & Dasprog HTML/CSS",
                 stepKelas10Desc: "Fokus belajar pengkondisian logic, perulangan, sintaks OOP dasar, serta cara merancang layout website statis responsive.",
                 stepKelas11Title: "Database SQL & Magang Junior Web Developer",
@@ -700,8 +702,8 @@
         window.onload = function () {
             // Apply default data to forms
             document.getElementById('input-name').value = "Atha Yan Putra";
-            document.getElementById('input-school').value = "SMK Negeri 1 Kota Kreatif";
-            document.getElementById('input-bio').value = "Siswa SMK berdedikasi tinggi yang fokus mempelajari industri digital modern dan siap berkontribusi dalam tim kerja professional.";
+            document.getElementById('input-school').value = "SMK Negeri 4 Bandar Lampung";
+            document.getElementById('input-bio').value = "Siswa PPLG di SMK Negeri 4 Bandar Lampung yang berfokus pada pengembangan website, pemrograman, dan pembuatan aplikasi.";
             document.getElementById('input-email').value = "athayanputra1107@gmail.com";
             document.getElementById('input-phone').value = "+6289522611413";
             
@@ -735,7 +737,7 @@
 
             // Update About me
             document.getElementById('about-school').innerText = school;
-            document.getElementById('about-major').innerText = activeJurusan.toUpperCase() + " (Kompetensi Keahlian)";
+            document.getElementById('about-major').innerText = activeJurusan === 'rpl' ? "Pengembangan Perangkat Lunak dan Gim (PPLG)" : (activeJurusan === 'tkj' ? "Teknik Komputer dan Jaringan (TKJ)" : "Desain Komunikasi Visual (DKV)");
             document.getElementById('about-intro').innerText = data.aboutIntro;
 
             // Update timeline steps
