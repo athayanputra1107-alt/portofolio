@@ -759,7 +759,11 @@
             localStorage.setItem('smk_phone', document.getElementById('input-phone').value);
             localStorage.setItem('smk_activeJurusan', activeJurusan);
             if (customAvatarBase64) {
-                localStorage.setItem('smk_customAvatar', customAvatarBase64);
+                try {
+                    localStorage.setItem('smk_customAvatar', customAvatarBase64);
+                } catch (e) {
+                    console.warn("Gagal menyimpan ke LocalStorage karena ukuran gambar terlalu besar, menampilkan di session saat ini.", e);
+                }
             } else {
                 localStorage.removeItem('smk_customAvatar');
             }
@@ -783,17 +787,55 @@
             document.getElementById('direct-avatar-input').click();
         }
 
+        function compressAndSetAvatar(file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const img = new Image();
+                img.onload = function () {
+                    // Membuat canvas untuk memproses pengecilan gambar
+                    const canvas = document.createElement('canvas');
+                    const MAX_WIDTH = 500; // Ukuran optimal untuk gambar profil lingkaran
+                    const MAX_HEIGHT = 500;
+                    let width = img.width;
+                    let height = img.height;
+
+                    // Hitung rasio aspek agar tetap presisi
+                    if (width > height) {
+                        if (width > MAX_WIDTH) {
+                            height *= MAX_WIDTH / width;
+                            width = MAX_WIDTH;
+                        }
+                    } else {
+                        if (height > MAX_HEIGHT) {
+                            width *= MAX_HEIGHT / height;
+                            height = MAX_HEIGHT;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Menggambar ulang gambar ke canvas dengan resolusi yang sudah dikecilkan
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    // Kompresi hasil gambar menjadi JPEG dengan kualitas 75% (sangat ringan namun tajam)
+                    customAvatarBase64 = canvas.toDataURL('image/jpeg', 0.75);
+                    
+                    // Simpan data & tampilkan
+                    saveToLocalStorage();
+                    renderCurrentMajorData();
+                    showToast("Foto Berhasil Dipasang!", "Gambar otomatis dikompres agar website berjalan sangat cepat.");
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
         function handleDirectAvatarUpload(event) {
             const file = event.target.files[0];
             if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    customAvatarBase64 = e.target.result;
-                    saveToLocalStorage();
-                    renderCurrentMajorData();
-                    showToast("Foto Profil Diperbarui!", "Foto baru Anda berhasil dipasang dan disimpan secara permanen.");
-                };
-                reader.readAsDataURL(file);
+                compressAndSetAvatar(file);
             }
         }
 
@@ -807,7 +849,7 @@
             customAvatarBase64 = null;
             saveToLocalStorage();
             renderCurrentMajorData();
-            showToast("Foto Direset!", "Foto profil Anda dikembalikan ke default.");
+            showToast("Foto Direset!", "Foto profil Anda dikembalikan ke bawaan.");
         }
 
         // Membantu sinkronisasi tombol jurusan aktif di panel samping
@@ -846,7 +888,7 @@
             // Update Avatar (Gunakan custom avatar jika diupload, jika tidak gunakan fallback)
             const avatarContainer = document.getElementById('avatar-container');
             if (customAvatarBase64) {
-                avatarContainer.innerHTML = `<img src="${customAvatarBase64}" alt="${name}" class="w-full h-full object-cover rounded-full shadow-inner border-2 border-sky-500" style="object-position: center; transform: scale(1.0);" onerror="this.onerror=null; resetAvatar();">`;
+                avatarContainer.innerHTML = `<img src="${customAvatarBase64}" alt="${name}" class="w-full h-full object-cover rounded-full shadow-inner border-2 border-sky-500" style="object-position: center; transform: scale(1.0);">`;
             } else {
                 avatarContainer.innerHTML = `<img src="Desain%20tanpa%20judul%20(1).jpg" alt="${name}" class="w-full h-full object-cover rounded-full shadow-inner border-2 border-sky-500" style="object-position: 55% 18%; transform: scale(1.4); transform-origin: 55% 18%;" onerror="this.onerror=null; this.src='https://placehold.co/400x400/0284c7/ffffff?text=${encodeURIComponent(name)}'">`;
             }
