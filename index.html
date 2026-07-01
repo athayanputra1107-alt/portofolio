@@ -243,12 +243,20 @@
                         <!-- Dynamic glowing aura matching background -->
                         <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-sky-400 to-indigo-500 opacity-20 blur-xl animate-pulse"></div>
                         <div class="absolute inset-4 rounded-full bg-gradient-to-tr from-indigo-500 to-sky-400 p-1 shadow-2xl">
-                            <div class="h-full w-full rounded-full bg-slate-950 overflow-hidden flex items-center justify-center relative">
+                            <div onclick="triggerDirectUpload()" class="group h-full w-full rounded-full bg-slate-950 overflow-hidden flex items-center justify-center relative cursor-pointer border-2 border-dashed border-transparent hover:border-sky-500 transition-all duration-300" title="Klik langsung untuk mengganti foto profil">
                                 <!-- Dynamic SVG Avatar or Image depending on major selected -->
-                                <div id="avatar-container" class="relative w-full h-full flex items-center justify-center">
-                                    <img src="Desain%20tanpa%20judul%20(1).jpg" alt="Atha Yan Putra" class="w-full h-full object-cover rounded-full shadow-inner border-2 border-sky-500" style="object-position: 55% 18%; transform: scale(1.4); transform-origin: 55% 18%;" onerror="this.onerror=null; this.src='https://placehold.co/400x400/0284c7/ffffff?text=Atha+Yan+Putra'">
+                                <div id="avatar-container" class="relative w-full h-full flex items-center justify-center pointer-events-none">
+                                    <img src="Desain%20tanpa%20judul%20(1).jpg" alt="Atha Yan Putra" class="w-full h-full object-cover rounded-full shadow-inner" style="object-position: 55% 18%; transform: scale(1.4); transform-origin: 55% 18%;" onerror="this.onerror=null; this.src='https://placehold.co/400x400/0284c7/ffffff?text=Atha+Yan+Putra'">
+                                </div>
+                                <!-- Overlay Interaktif Ganti Foto -->
+                                <div class="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center text-white transition-opacity duration-200">
+                                    <i class="fa-solid fa-camera text-2xl mb-1.5 text-sky-400 animate-bounce-slow"></i>
+                                    <span class="text-xs font-bold uppercase tracking-wider text-sky-300">Ganti Foto</span>
+                                    <p class="text-[9px] text-slate-400 mt-1">Klik untuk pilih berkas</p>
                                 </div>
                             </div>
+                            <!-- Input File Tersembunyi untuk Akses Cepat -->
+                            <input type="file" id="direct-avatar-input" accept="image/*" class="hidden" onchange="handleDirectAvatarUpload(event)">
                         </div>
 
                         <!-- Mini Floating Badges -->
@@ -701,19 +709,119 @@
         };
 
         let activeJurusan = 'rpl'; // default state
+        let customAvatarBase64 = null; // Menyimpan data gambar kustom pengguna
+
+        function loadFromLocalStorage() {
+            if (localStorage.getItem('smk_name')) {
+                document.getElementById('input-name').value = localStorage.getItem('smk_name');
+            } else {
+                document.getElementById('input-name').value = "Atha Yan Putra";
+            }
+
+            if (localStorage.getItem('smk_school')) {
+                document.getElementById('input-school').value = localStorage.getItem('smk_school');
+            } else {
+                document.getElementById('input-school').value = "SMK Negeri 4 Bandar Lampung";
+            }
+
+            if (localStorage.getItem('smk_bio')) {
+                document.getElementById('input-bio').value = localStorage.getItem('smk_bio');
+            } else {
+                document.getElementById('input-bio').value = "Siswa PPLG di SMK Negeri 4 Bandar Lampung yang berfokus pada pengembangan website, pemrograman, dan pembuatan aplikasi.";
+            }
+
+            if (localStorage.getItem('smk_email')) {
+                document.getElementById('input-email').value = localStorage.getItem('smk_email');
+            } else {
+                document.getElementById('input-email').value = "athayanputra1107@gmail.com";
+            }
+
+            if (localStorage.getItem('smk_phone')) {
+                document.getElementById('input-phone').value = localStorage.getItem('smk_phone');
+            } else {
+                document.getElementById('input-phone').value = "+6289522611413";
+            }
+
+            if (localStorage.getItem('smk_activeJurusan')) {
+                activeJurusan = localStorage.getItem('smk_activeJurusan');
+            }
+
+            if (localStorage.getItem('smk_customAvatar')) {
+                customAvatarBase64 = localStorage.getItem('smk_customAvatar');
+            }
+        }
+
+        function saveToLocalStorage() {
+            localStorage.setItem('smk_name', document.getElementById('input-name').value);
+            localStorage.setItem('smk_school', document.getElementById('input-school').value);
+            localStorage.setItem('smk_bio', document.getElementById('input-bio').value);
+            localStorage.setItem('smk_email', document.getElementById('input-email').value);
+            localStorage.setItem('smk_phone', document.getElementById('input-phone').value);
+            localStorage.setItem('smk_activeJurusan', activeJurusan);
+            if (customAvatarBase64) {
+                localStorage.setItem('smk_customAvatar', customAvatarBase64);
+            } else {
+                localStorage.removeItem('smk_customAvatar');
+            }
+        }
 
         // Initialize App on Window Load
         window.onload = function () {
-            // Apply default data to forms
-            document.getElementById('input-name').value = "Atha Yan Putra";
-            document.getElementById('input-school').value = "SMK Negeri 4 Bandar Lampung";
-            document.getElementById('input-bio').value = "Siswa PPLG di SMK Negeri 4 Bandar Lampung yang berfokus pada pengembangan website, pemrograman, dan pembuatan aplikasi.";
-            document.getElementById('input-email').value = "athayanputra1107@gmail.com";
-            document.getElementById('input-phone').value = "+6289522611413";
+            // Muat data profil tersimpan
+            loadFromLocalStorage();
             
-            // Render everything based on initial state
+            // Set tombol jurusan aktif di UI kustomisasi
+            setJurusanUI(activeJurusan);
+
+            // Render halaman
             renderCurrentMajorData();
-            showToast("Selamat Datang!", "Tema gelap grid blueprint telah diaplikasikan.");
+            showToast("Selamat Datang!", "Profil Anda otomatis dimuat dan disimpan di browser ini.");
+        }
+
+        // Trigger unggah file secara langsung saat foto diklik
+        function triggerDirectUpload() {
+            document.getElementById('direct-avatar-input').click();
+        }
+
+        function handleDirectAvatarUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    customAvatarBase64 = e.target.result;
+                    saveToLocalStorage();
+                    renderCurrentMajorData();
+                    showToast("Foto Profil Diperbarui!", "Foto baru Anda berhasil dipasang dan disimpan secara permanen.");
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Memproses upload foto dari panel kustomisasi samping
+        function handleAvatarUpload(event) {
+            handleDirectAvatarUpload(event);
+        }
+
+        // Menghapus foto kustom dan mengembalikan ke foto default Anda
+        function resetAvatar() {
+            customAvatarBase64 = null;
+            saveToLocalStorage();
+            renderCurrentMajorData();
+            showToast("Foto Direset!", "Foto profil Anda dikembalikan ke default.");
+        }
+
+        // Membantu sinkronisasi tombol jurusan aktif di panel samping
+        function setJurusanUI(majorKey) {
+            ['rpl', 'tkj', 'dkv'].forEach(key => {
+                const btn = document.getElementById(`btn-jurusan-${key}`);
+                if (btn) {
+                    if (key === majorKey) {
+                        btn.className = "flex flex-col items-center gap-1.5 rounded-xl border-2 border-sky-500 bg-sky-950/40 p-2.5 text-center text-xs font-bold text-sky-400 transition";
+                    } else {
+                        btn.className = "flex flex-col items-center gap-1.5 rounded-xl border border-slate-800 p-2.5 text-center text-xs font-medium text-slate-400 transition hover:border-slate-700";
+                    }
+                }
+            });
         }
 
         // Function to render content dynamically based on selected SMK major
@@ -735,8 +843,13 @@
             document.getElementById('hero-school').innerText = school;
             document.getElementById('hero-subtext').innerHTML = `Saya siswa jurusan <span class="font-bold text-sky-400">${data.heroBold}</span> dari <span class="font-bold text-indigo-400">${school}</span>. ${bio}`;
 
-            // Update Avatar
-            document.getElementById('avatar-container').innerHTML = data.avatarSvg;
+            // Update Avatar (Gunakan custom avatar jika diupload, jika tidak gunakan fallback)
+            const avatarContainer = document.getElementById('avatar-container');
+            if (customAvatarBase64) {
+                avatarContainer.innerHTML = `<img src="${customAvatarBase64}" alt="${name}" class="w-full h-full object-cover rounded-full shadow-inner border-2 border-sky-500" style="object-position: center; transform: scale(1.0);" onerror="this.onerror=null; resetAvatar();">`;
+            } else {
+                avatarContainer.innerHTML = `<img src="Desain%20tanpa%20judul%20(1).jpg" alt="${name}" class="w-full h-full object-cover rounded-full shadow-inner border-2 border-sky-500" style="object-position: 55% 18%; transform: scale(1.4); transform-origin: 55% 18%;" onerror="this.onerror=null; this.src='https://placehold.co/400x400/0284c7/ffffff?text=${encodeURIComponent(name)}'">`;
+            }
             
             // Update Floating Badges
             document.getElementById('float-badge-icon').className = `${data.floatBadgeIcon} text-indigo-400`;
@@ -876,21 +989,16 @@
             activeJurusan = majorKey;
             
             // Toggle active status UI buttons
-            ['rpl', 'tkj', 'dkv'].forEach(key => {
-                const btn = document.getElementById(`btn-jurusan-${key}`);
-                if (key === majorKey) {
-                    btn.className = "flex flex-col items-center gap-1.5 rounded-xl border-2 border-sky-500 bg-sky-950/40 p-2.5 text-center text-xs font-bold text-sky-400 transition";
-                } else {
-                    btn.className = "flex flex-col items-center gap-1.5 rounded-xl border border-slate-800 p-2.5 text-center text-xs font-medium text-slate-400 transition hover:border-slate-700";
-                }
-            });
+            setJurusanUI(majorKey);
 
+            saveToLocalStorage();
             renderCurrentMajorData();
             showToast("Jurusan Berubah!", `Tampilan dan pendaran grid disesuaikan ke ${majorKey.toUpperCase()}.`);
         }
 
         // Apply visual updates on text inputs
         function updatePersonalData() {
+            saveToLocalStorage();
             renderCurrentMajorData();
         }
 
